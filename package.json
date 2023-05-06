@@ -1,0 +1,52 @@
+{
+  "name": "ppsl-cd-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "start-dev": "node ./server/index.js --dev",
+    "dev": "vite",
+    "build": "rimraf ./dist && vite build",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@lexical/headless": "^0.10.0",
+    "@lexical/react": "^0.10.0",
+    "@msgpack/msgpack": "^3.0.0-beta2",
+    "@picocss/pico": "^1.5.10",
+    "compression": "^1.7.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fastify-next-auth": "^0.3.0",
+    "lexical": "^0.10.0",
+    "lucide-react": "^0.192.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite-plugin-ssr": "^0.4.118"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.38.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "postcss": "^8.4.23",
+    "prettier": "2.8.8",
+    "prettier-eslint": "^15.0.1",
+    "prettier-plugin-tailwindcss": "^0.2.7",
+    "rimraf": "^5.0.0",
+    "sass": "^1.62.1",
+    "tailwindcss": "^3.3.2",
+    "vite": "^4.3.3"
+  },
+  "packageManager": "yarn@3.5.0"
+}
