@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { EditIcon, XIcon } from 'lucide-react'
 
 import { Container } from '@/components/Container'
-import { BioEditor } from '@/components/editors/Bio/editor'
+import { BioEditor } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/editor'
 
 import { tryParseContent } from '@/lib/api/posts/utils'
 

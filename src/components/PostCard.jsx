@@ -7,9 +7,9 @@ export function PostCard ({ id, postHistory }) {
 
   return (
     <Link href={`${POST_PAGE_ENDPOINT}/${id}`} className="no-underline">
-      <article className="m-0 p-0">
-        <header className="m-0 flex flex-col p-3">
-          <strong>{title}</strong>
+      <article className="m-0 h-full p-0">
+        <header className="m-0 flex h-full flex-col p-3">
+          <strong>{title || <i>Missing title!</i>}</strong>
           <small className="text-xs">
             {new Date(createdTimestamp).toLocaleString()}
           </small>

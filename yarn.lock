@@ -530,7 +530,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lexical/selection@npm:0.10.0":
+"@lexical/selection@npm:0.10.0, @lexical/selection@npm:^0.10.0":
   version: 0.10.0
   resolution: "@lexical/selection@npm:0.10.0"
   peerDependencies:
@@ -559,7 +559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lexical/utils@npm:0.10.0":
+"@lexical/utils@npm:0.10.0, @lexical/utils@npm:^0.10.0":
   version: 0.10.0
   resolution: "@lexical/utils@npm:0.10.0"
   dependencies:
@@ -777,6 +777,32 @@ __metadata:
     "@swc/helpers":
       optional: true
   checksum: e8ae32e21e78761597b802bd76bb5f0d819441454c4cc5624c077dfa8cf84760eb589e4a1eb6fdc1b1ec65a4b03f7ab42413952b38234f5c13b8b2afb4d453f4
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:4.29.5":
+  version: 4.29.5
+  resolution: "@tanstack/query-core@npm:4.29.5"
+  checksum: 367176beccd78e959c74e69e96497b626dd1c139398501eb7a04cf92215edf262665c3e7bb59df68320779d49893d3153a3b41e750b9046655b45cfe44691b36
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^4.29.5":
+  version: 4.29.5
+  resolution: "@tanstack/react-query@npm:4.29.5"
+  dependencies:
+    "@tanstack/query-core": 4.29.5
+    use-sync-external-store: ^1.2.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-native: "*"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: de45573900810b37216aa8d6599cae5ea43602eaada9fd2224f57ff7ab1de10b3f2e681e7fdb993ee1519ed8ffc7e6e07d6bf3ad1b9da4136b1ae78ca19f31f6
   languageName: node
   linkType: hard
 
@@ -3968,8 +3994,11 @@ __metadata:
   dependencies:
     "@lexical/headless": ^0.10.0
     "@lexical/react": ^0.10.0
+    "@lexical/selection": ^0.10.0
+    "@lexical/utils": ^0.10.0
     "@msgpack/msgpack": ^3.0.0-beta2
     "@picocss/pico": ^1.5.10
+    "@tanstack/react-query": ^4.29.5
     "@types/react": ^18.0.28
     "@types/react-dom": ^18.0.11
     "@vitejs/plugin-react-swc": ^3.0.0
@@ -5044,6 +5073,15 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
   languageName: node
   linkType: hard
 

@@ -5,6 +5,8 @@ import { usePageContext } from '@/renderer/usePageContext'
 
 import { tryParseContent } from '@/lib/api/posts/utils'
 
+import { EntityHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
+
 export function Page (pageProps) {
   const { urlPathname } = usePageContext()
   const { request } = pageProps
@@ -22,7 +24,7 @@ export function Page (pageProps) {
           edit={{ href: `${urlPathname}/edit` }}
         />
 
-        {/* <BioEditor readOnly post={request} initialContent={parsedContent} /> */}
+        <EntityHTML initialContent={parsedContent} />
       </div>
     </Container>
   )

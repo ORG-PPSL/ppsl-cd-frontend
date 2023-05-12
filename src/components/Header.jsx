@@ -11,7 +11,7 @@ export function Header ({ className = '', title }) {
     <header className={`mx-0 mb-0 ${className}`}>
       <hgroup className="m-0">
         <h1>{title ?? 'PPSL CD'}</h1>
-        <h2 className="text-gray-400">Reviews database</h2>
+        <h2 className="text-gray-500 dark:text-gray-400">Reviews database</h2>
       </hgroup>
       {!user
         ? (

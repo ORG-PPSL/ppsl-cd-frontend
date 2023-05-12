@@ -35,6 +35,7 @@ export async function render (pageContext) {
       </head>
       <body>
         <div id="root">${dangerouslySkipEscape(pageHtml)}</div>
+        <div id="modal"></div>
       </body>
     </html>`
 

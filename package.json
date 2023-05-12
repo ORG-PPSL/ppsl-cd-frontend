@@ -14,8 +14,11 @@
   "dependencies": {
     "@lexical/headless": "^0.10.0",
     "@lexical/react": "^0.10.0",
+    "@lexical/selection": "^0.10.0",
+    "@lexical/utils": "^0.10.0",
     "@msgpack/msgpack": "^3.0.0-beta2",
     "@picocss/pico": "^1.5.10",
+    "@tanstack/react-query": "^4.29.5",
     "compression": "^1.7.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
