@@ -11,7 +11,7 @@ export function PostTitle (props) {
       <hgroup className="m-0 grow">
         <h3>{title}</h3>
         <span className="!text-xs text-gray-500 dark:text-gray-400">
-          {new Date(createdTimestamp).toLocaleString()}
+          {createdTimestamp && new Date(createdTimestamp).toLocaleString()}
         </span>
       </hgroup>
 

@@ -8,6 +8,7 @@ import { tryParseContent } from '@/lib/api/posts/utils'
 
 import cdROMImage from '@/assets/CD-ROM.png'
 import { PostTitle } from '@/components/post/Title'
+import { encode } from '@msgpack/msgpack'
 
 export function Page (pageProps) {
   const [edit, setEdit] = useState(false)
@@ -36,6 +37,33 @@ export function Page (pageProps) {
 
   const handleEditBio = () => {
     setEdit(!edit)
+  }
+
+  const onSubmitBio = async ({ event, editor }) => {
+    event.preventDefault()
+
+    const content = editor.getEditorState().toJSON()
+    const encodedContent = encode(content).toString()
+
+    const headers = new Headers()
+    headers.append('content-type', 'application/json')
+
+    try {
+      const res = await fetch('/api/users/', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          content: encodedContent
+        })
+      })
+
+      console.log(await res.text())
+
+      if (res.status >= 200 && res.status < 300) window.location.reload()
+      else throw res
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -77,10 +105,12 @@ export function Page (pageProps) {
               }
             }
           />
+
           <BioEditor
             key={edit}
             post={bio}
             readOnly={!edit}
+            onSubmit={onSubmitBio}
             initialContent={parsedContentRef.current}
           />
         </div>
