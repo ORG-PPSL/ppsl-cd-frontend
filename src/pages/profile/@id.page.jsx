@@ -1,14 +1,16 @@
+import { encode } from '@msgpack/msgpack'
 import { useRef, useState } from 'react'
 import { EditIcon, XIcon } from 'lucide-react'
 
-import { Container } from '@/components/Container'
-import { BioEditor } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/editor'
+import cdROMImage from '@/assets/CD-ROM.png'
 
 import { tryParseContent } from '@/lib/api/posts/utils'
 
-import cdROMImage from '@/assets/CD-ROM.png'
+import { BioEditor } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/editor'
+import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
+
+import { Container } from '@/components/Container'
 import { PostTitle } from '@/components/post/Title'
-import { encode } from '@msgpack/msgpack'
 
 export function Page (pageProps) {
   const [edit, setEdit] = useState(false)
@@ -77,8 +79,8 @@ export function Page (pageProps) {
             }`}
           />
           <hgroup className="m-0">
-            <h3>Profile</h3>
-            <h4>{request.name}</h4>
+            <h3>{request.name}</h3>
+            <h4>Profile</h4>
           </hgroup>
         </div>
         {me && (
@@ -106,13 +108,19 @@ export function Page (pageProps) {
             }
           />
 
-          <BioEditor
-            key={edit}
-            post={bio}
-            readOnly={!edit}
-            onSubmit={onSubmitBio}
-            initialContent={parsedContentRef.current}
-          />
+          {me
+            ? (
+            <BioEditor
+              key={edit}
+              post={bio}
+              readOnly={!edit}
+              onSubmit={onSubmitBio}
+              initialContent={parsedContentRef.current}
+            />
+              )
+            : (
+            <BioHTML initialContent={parsedContentRef.current} />
+              )}
         </div>
       </div>
     </Container>

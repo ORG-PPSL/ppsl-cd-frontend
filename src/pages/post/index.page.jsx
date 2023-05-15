@@ -55,11 +55,11 @@ export function Page () {
         body: JSON.stringify(body)
       })
 
-      console.log(await res.text())
-
       if (res.status >= 200 && res.status < 300) {
-        window.location.reload()
+        const json = await res.json()
+        window.location.href = `/post/${json.id}`
       } else {
+        console.log(await res.text())
         throw res
       }
     } catch (error) {

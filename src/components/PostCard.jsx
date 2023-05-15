@@ -10,9 +10,11 @@ export function PostCard ({ id, postHistory }) {
       <article className="m-0 h-full p-0">
         <header className="m-0 flex h-full flex-col p-3">
           <strong>{title || <i>Missing title!</i>}</strong>
-          <small className="text-xs">
-            {new Date(createdTimestamp).toLocaleString()}
-          </small>
+          {createdTimestamp && (
+            <small className="text-xs">
+              {new Date(createdTimestamp).toLocaleString()}
+            </small>
+          )}
         </header>
       </article>
     </Link>

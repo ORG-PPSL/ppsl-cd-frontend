@@ -158,3 +158,9 @@ export function useGetReviewsByPostId (postId, page = 0) {
     isInitialLoading
   }
 }
+
+export async function getAuthorsForPostId (postId) {
+  const url = new URL(`./posts/id/${postId}/authors`, API_ENDPOINT)
+  const res = await fetch(url)
+  return await res.json()
+}

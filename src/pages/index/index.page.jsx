@@ -33,11 +33,20 @@ export function Page (pageProps) {
         <hr />
 
         <div className="flex flex-col gap-2">
-          <strong>System posts</strong>
+          <strong>Categories</strong>
           <div className="!grid grid-cols-2 gap-2">
-            {request.result?.map((post) => (
-              <PostCard key={post.id} {...post} />
-            ))}
+            {request.result?.map((post) => {
+              const postsWithoutCreatedTimestamp = {
+                ...post,
+                postHistory: post.postHistory.map((postHistory) => ({
+                  ...postHistory,
+                  createdTimestamp: null
+                }))
+              }
+              return (
+                <PostCard key={post.id} {...postsWithoutCreatedTimestamp} />
+              )
+            })}
           </div>
         </div>
 

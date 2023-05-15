@@ -8,8 +8,10 @@ export function Header ({ className = '', title }) {
   const { urlPathname, user } = usePageContext()
 
   return (
-    <header className={`mx-0 mb-0 ${className}`}>
-      <hgroup className="m-0">
+    <header
+      className={`mx-0 mb-0 ${className} flex items-end justify-between gap-2`}
+    >
+      <hgroup className="m-0 flex flex-col items-start justify-end gap-2">
         <h1>{title ?? 'PPSL CD'}</h1>
         <h2 className="text-gray-500 dark:text-gray-400">Reviews database</h2>
       </hgroup>
@@ -18,7 +20,7 @@ export function Header ({ className = '', title }) {
             urlPathname !== '/login' && <Link href="/login">Login</Link>
           )
         : (
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col items-end justify-end gap-2">
           <span>Hello, {user.name}.</span>
           <div className="flex items-center gap-2">
             <Link href="/profile">Profile</Link>

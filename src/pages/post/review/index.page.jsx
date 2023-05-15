@@ -91,10 +91,13 @@ export function Page (pageProps) {
         body: JSON.stringify(body)
       })
 
-      console.log(await res.text())
-
-      if (res.status >= 200 && res.status < 300) window.location.reload()
-      else throw res
+      if (res.status >= 200 && res.status < 300) {
+        const json = await res.json()
+        window.location.href = `/post/${json.id}`
+      } else {
+        console.log(await res.text())
+        throw res
+      }
     } catch (error) {
       console.error(error)
     } finally {
@@ -134,7 +137,7 @@ export function Page (pageProps) {
                 placeholder="Review type"
                 onChange={handleReviewTypeChange}
               >
-                <option value="Neutral">Neutral</option>
+                <option value="NEUTRAL">Neutral</option>
                 <option value="NEGATIVE">Negative</option>
                 <option value="POSITIVE">Positive</option>
               </select>

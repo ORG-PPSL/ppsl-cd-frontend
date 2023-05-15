@@ -41,7 +41,7 @@ export function ReviewCard ({ type, user, id, createdTimestamp, postHistory }) {
       </header>
 
       <div className="p-3">
-        <h4 className="m-0 mb-2">{title || <i>Missing title!</i>}</h4>
+        <h4 className="m-0 mb-2 last:mb-0">{title || <i>Missing title!</i>}</h4>
         <BioHTML initialContent={parsedContent} />
       </div>
     </article>
