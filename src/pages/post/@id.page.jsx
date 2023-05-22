@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
+import { ChevronLeftIcon } from 'lucide-react'
 
 import { Link } from '@/renderer/Link'
 import { usePageContext } from '@/renderer/usePageContext'
 
 import { tryParseContent } from '@/lib/api/posts/utils'
 import { getAuthorsForPostId } from '@/lib/api/posts'
+import { getEditURLForPost, isOfPostType } from '@/lib/post'
 
 import { Container } from '@/components/Container'
 import { PostTitle } from '@/components/post/Title'
@@ -12,6 +14,9 @@ import { ReviewTitle } from '@/components/review/Title'
 import { Tags } from '@/components/post/Tags'
 import { ReviewsList } from '@/components/review/List'
 import { EntityHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
+import useFormattedDate from '@/components/useFormattedDate'
+import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
+import { typeToColorClassAndIcon } from '@/components/review/Card'
 
 export function Page (pageProps) {
   const { urlPathname } = usePageContext()
@@ -22,9 +27,15 @@ export function Page (pageProps) {
 
   const parsedContent = tryParseContent(content, true)
 
-  const isEntity = request.outRelations.some(
-    (relation) => relation.isSystem && relation.toPost.id === 'entity'
-  )
+  const isEntity = isOfPostType(request.outRelations, 'entity')
+  const isReview = isOfPostType(request.outRelations, 'review')
+  // const isSystem = isOfPostType(request.outRelations, 'system')
+
+  const editURL = getEditURLForPost(urlPathname, request.outRelations)
+
+  const isAuthor = authors.some((author) => author.id === pageProps.user?.id)
+
+  const createdTimestamp = useFormattedDate(request.createdTimestamp)
 
   useEffect(() => {
     let cancel = false
@@ -44,15 +55,54 @@ export function Page (pageProps) {
   return (
     <Container>
       <div className="p-4 sm:p-8">
+        {isReview && (
+          <div className="mb-4 flex flex-col gap-4 leading-none">
+            <Link
+              href={request.reviewing.toPost.id}
+              className="flex items-center py-2"
+            >
+              <ChevronLeftIcon />
+              <span>
+                Reviewing &quot;{request.reviewing.toPost.postHistory[0].title}
+                &quot;
+              </span>
+            </Link>
+            <span>User review:</span>
+            <p
+              className={`m-0 ${
+                typeToColorClassAndIcon[request.reviewing.type][0]
+              } flex items-center gap-2 bg-opacity-10 leading-none`}
+            >
+              <span
+                className={`bg-opacity-75 p-4 text-opacity-75 ${
+                  typeToColorClassAndIcon[request.reviewing.type][0]
+                }`}
+              >
+                {typeToColorClassAndIcon[request.reviewing.type][1]}
+              </span>
+              {request.reviewing.type}
+            </p>
+          </div>
+        )}
+
         <PostTitle
           title={title}
-          createdTimestamp={request.createdTimestamp}
-          edit={{ href: `${urlPathname}/edit` }}
+          timestamp={request.lastUpdated}
+          edit={
+            isReview
+              ? isAuthor
+                ? { href: `/post/${request.reviewing.toPost.id}/review` }
+                : null
+              : { href: editURL }
+          }
         />
 
-        <Tags relations={request.outRelations} />
+        {!!request.outRelations.length && (
+          <Tags relations={request.outRelations} />
+        )}
 
-        <EntityHTML initialContent={parsedContent} />
+        {isEntity && <EntityHTML initialContent={parsedContent} />}
+        {isReview && <BioHTML initialContent={parsedContent} />}
 
         {isEntity && (
           <>
@@ -70,11 +120,11 @@ export function Page (pageProps) {
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-gray-500 dark:text-gray-400">
           <span>
-            &quot;{title}&quot; post created:{' '}
-            {new Date(request.createdTimestamp).toLocaleString()}
+            &quot;{title}&quot; post created: {createdTimestamp}
           </span>
           <div className="flex flex-wrap gap-1">
             <span>Author{authors.length > 1 && 's'}: </span>
+
             {authors.map((author, index, arr) => (
               <Link key={author.id} href={`/profile/${author.id}`}>
                 {author.name}

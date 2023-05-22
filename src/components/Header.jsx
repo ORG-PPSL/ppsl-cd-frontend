@@ -9,12 +9,15 @@ export function Header ({ className = '', title }) {
 
   return (
     <header
-      className={`mx-0 mb-0 ${className} flex items-end justify-between gap-2`}
+      className={`mx-0 mb-0 ${className} flex items-end justify-between gap-2 px-8`}
     >
-      <hgroup className="m-0 flex flex-col items-start justify-end gap-2">
-        <h1>{title ?? 'PPSL CD'}</h1>
-        <h2 className="text-gray-500 dark:text-gray-400">Reviews database</h2>
-      </hgroup>
+      <a href="/">
+        <hgroup className="m-0 flex flex-col items-start justify-end gap-2">
+          <h1>{title ?? 'PPSL CD'}</h1>
+          <h2 className="text-gray-500 dark:text-gray-400">Reviews database</h2>
+        </hgroup>
+      </a>
+
       {!user
         ? (
             urlPathname !== '/login' && <Link href="/login">Login</Link>

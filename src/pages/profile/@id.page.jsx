@@ -1,10 +1,11 @@
-import { encode } from '@msgpack/msgpack'
 import { useRef, useState } from 'react'
+import { encode } from '@msgpack/msgpack'
 import { EditIcon, XIcon } from 'lucide-react'
 
 import cdROMImage from '@/assets/CD-ROM.png'
 
 import { tryParseContent } from '@/lib/api/posts/utils'
+import { updatePostById } from '@/lib/api/posts'
 
 import { BioEditor } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/editor'
 import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
@@ -47,17 +48,14 @@ export function Page (pageProps) {
     const content = editor.getEditorState().toJSON()
     const encodedContent = encode(content).toString()
 
-    const headers = new Headers()
-    headers.append('content-type', 'application/json')
+    const body = {
+      title: bio.title,
+      language: bio.language,
+      content: encodedContent
+    }
 
     try {
-      const res = await fetch('/api/users/', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          content: encodedContent
-        })
-      })
+      const res = updatePostById(bio.postId, body)
 
       console.log(await res.text())
 
@@ -98,7 +96,7 @@ export function Page (pageProps) {
         <div>
           <PostTitle
             title={bio.title}
-            createdTimestamp={bio.createdTimestamp}
+            timestamp={bio.createdTimestamp}
             edit={
               me && {
                 handleClick: handleEditBio,

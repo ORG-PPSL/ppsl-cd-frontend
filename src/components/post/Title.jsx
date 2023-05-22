@@ -1,17 +1,21 @@
 import { EditIcon } from 'lucide-react'
 
 import { Link } from '@/renderer/Link'
+
 import { Button } from '../Button'
+import useFormattedDate from '../useFormattedDate'
 
 export function PostTitle (props) {
-  const { title = '', createdTimestamp, edit } = props
+  const { title = '', timestamp, edit } = props
+
+  const formattedTimestamp = useFormattedDate(timestamp)
 
   return (
     <div className="mb-4 flex flex-row items-center justify-between">
       <hgroup className="m-0 grow">
         <h3>{title}</h3>
         <span className="!text-xs text-gray-500 dark:text-gray-400">
-          {createdTimestamp && new Date(createdTimestamp).toLocaleString()}
+          {formattedTimestamp}
         </span>
       </hgroup>
 

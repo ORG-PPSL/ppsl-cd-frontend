@@ -1,23 +1,25 @@
 import { useState } from 'react'
 import { encode } from '@msgpack/msgpack'
-import { Loader2Icon } from 'lucide-react'
 
 import { Link } from '@/renderer/Link'
 
-import { EntityEditor } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/editor'
+import { tryParseContent } from '@/lib/api/posts/utils'
+import { updatePostById } from '@/lib/api/posts'
 
-import { Container } from '@/components/Container'
-import { InputTitle } from '@/components/inputs/Title'
+import { EntityEditor } from '../ppsl-cd-lexical-shared/src/editors/Entity/editor'
+import { InputTitle } from '../inputs/Title'
 
 const LANGUAGE = 'language'
 const TITLE = 'title'
 
-export function Page () {
+export function EntityForm ({ entity }) {
+  const [{ language, title, content }] = entity.postHistory
+
   const [isSaving, setIsSaving] = useState(false)
 
   const [form, setForm] = useState({
-    [TITLE]: '',
-    [LANGUAGE]: 'en',
+    [TITLE]: title || '',
+    [LANGUAGE]: language || 'en',
     errors: new Map()
   })
 
@@ -39,7 +41,7 @@ export function Page () {
     handleFormChange({ name: LANGUAGE, value: e.target.value })
   }
 
-  const handleSubmit = async ({ event, editor }) => {
+  const onSubmitEntity = async ({ event, editor }) => {
     event.preventDefault()
 
     const { title, language, errors } = form
@@ -50,7 +52,7 @@ export function Page () {
     const encodedContent = encode(content).toString()
 
     const body = {
-      title: title.trim(),
+      title,
       language,
       content: encodedContent
     }
@@ -58,14 +60,7 @@ export function Page () {
     setIsSaving(true)
 
     try {
-      const headers = new Headers()
-      headers.append('content-type', 'application/json')
-
-      const res = await fetch('/api/posts/', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
-      })
+      const res = await updatePostById(entity.id, body)
 
       if (res.status >= 200 && res.status < 300) {
         const json = await res.json()
@@ -81,13 +76,14 @@ export function Page () {
     }
   }
 
+  const parsedContent = tryParseContent(content, true)
+
   return (
-    <Container>
-      <div className="p-4 px-8">
-        <hgroup>
-          <h3 className="m-0">Creating a new entity</h3>
+    <>
+      <div className="px-8 py-4 pt-8">
+        <hgroup className="m-0">
           <h4 className="text-gray-500 dark:text-gray-400">
-            Give it a title.{' '}
+            Title:{' '}
             <Link href="/terms" target="_blank">
               Don&apos;t forget to read the ToS!
             </Link>
@@ -105,7 +101,7 @@ export function Page () {
               />
             </label>
             <select
-              className="!m-0 !w-[unset] shrink"
+              className="m-0 !w-[unset] shrink"
               placeholder="Language"
               value={form.language}
               onChange={handleLanguageChange}
@@ -119,17 +115,11 @@ export function Page () {
             )}
       </div>
 
-      <div className="relative">
-        {isSaving && (
-          <div className="absolute z-50 flex h-full w-full animate-pulse items-center justify-center bg-black bg-opacity-50">
-            <div className="animate-spin">
-              <Loader2Icon size="3rem" />
-            </div>
-          </div>
-        )}
-
-        <EntityEditor onSubmit={handleSubmit} title={false} />
-      </div>
-    </Container>
+      <EntityEditor
+        post={entity}
+        onSubmit={onSubmitEntity}
+        initialContent={parsedContent}
+      />
+    </>
   )
 }

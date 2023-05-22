@@ -36,7 +36,9 @@ const Result = ({ image, onClick, selected }) => {
     'png',
     'jpg',
     'svg',
-    'JPG'
+    'JPG',
+    'jpeg',
+    'JPEG'
   ])
 
   const [blur, setBlur] = useState(true)

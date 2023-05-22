@@ -12,10 +12,12 @@ export function ReviewTitle (props) {
         <span className="text-gray-500 dark:text-gray-400"></span>
       </hgroup>
 
-      <Link href={edit.href} className="flex items-center gap-2 no-underline">
-        {edit?.icon || <PlusSquareIcon />}
-        <span>{edit?.text || 'Review'}</span>
-      </Link>
+      {edit && (
+        <Link href={edit.href} className="flex items-center gap-2 no-underline">
+          {edit?.icon || <PlusSquareIcon />}
+          <span>{edit?.text || 'Review'}</span>
+        </Link>
+      )}
     </div>
   )
 }

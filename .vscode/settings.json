@@ -5,5 +5,12 @@
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "npm.packageManager": "yarn",
-  "editor.formatOnSave": true
+  "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter",
+  "editor.formatOnSave": true,
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter"
+  }
 }

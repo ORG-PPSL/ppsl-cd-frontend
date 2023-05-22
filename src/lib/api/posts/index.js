@@ -164,3 +164,23 @@ export async function getAuthorsForPostId (postId) {
   const res = await fetch(url)
   return await res.json()
 }
+
+export async function updatePostById (postId, body) {
+  const res = await fetch(`/api/posts/id/${postId}`, {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify(body)
+  })
+
+  return res
+}
+
+export async function upsertReviewForPostId (postId, body) {
+  const res = await fetch(`/api/posts/id/${postId}/reviews`, {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify(body)
+  })
+
+  return res
+}
