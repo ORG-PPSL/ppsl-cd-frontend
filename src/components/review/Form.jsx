@@ -157,7 +157,7 @@ export function ReviewForm ({ post, review }) {
       </div>
 
       <BioEditor
-        title={false}
+        title={'Editing review'}
         onSubmit={onSubmitReview}
         initialContent={parsedReviewContent}
       />

@@ -83,9 +83,9 @@ export function Page () {
 
   return (
     <Container>
-      <div className="p-4 px-8">
-        <hgroup>
-          <h3 className="m-0">Creating a new entity</h3>
+      <div className="p-4 sm:p-8 sm:pb-4">
+        <hgroup className="mb-4">
+          <h3>Creating a new entity</h3>
           <h4 className="text-gray-500 dark:text-gray-400">
             Give it a title.{' '}
             <Link href="/terms" target="_blank">

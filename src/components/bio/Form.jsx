@@ -49,7 +49,7 @@ export function BioForm ({ bio }) {
   return (
     <BioEditor
       post={bio}
-      title={false}
+      title={'Editing Bio'}
       onSubmit={onSubmitBio}
       initialContent={parsedContent}
     />

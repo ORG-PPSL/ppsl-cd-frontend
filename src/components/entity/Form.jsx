@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { encode } from '@msgpack/msgpack'
 
-import { Link } from '@/renderer/Link'
-
 import { tryParseContent } from '@/lib/api/posts/utils'
 import { updatePostById } from '@/lib/api/posts'
 
@@ -80,16 +78,7 @@ export function EntityForm ({ entity }) {
 
   return (
     <>
-      <div className="px-8 py-4 pt-8">
-        <hgroup className="m-0">
-          <h4 className="text-gray-500 dark:text-gray-400">
-            Title:{' '}
-            <Link href="/terms" target="_blank">
-              Don&apos;t forget to read the ToS!
-            </Link>
-          </h4>
-        </hgroup>
-
+      <div className="px-8 py-4 pt-2">
         {!isSaving
           ? (
           <div className="flex items-start gap-2">
@@ -116,6 +105,7 @@ export function EntityForm ({ entity }) {
       </div>
 
       <EntityEditor
+        title={'Editing entity'}
         post={entity}
         onSubmit={onSubmitEntity}
         initialContent={parsedContent}

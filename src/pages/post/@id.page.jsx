@@ -8,14 +8,15 @@ import { tryParseContent } from '@/lib/api/posts/utils'
 import { getAuthorsForPostId } from '@/lib/api/posts'
 import { getEditURLForPost, isOfPostType } from '@/lib/post'
 
+import { EntityHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
+import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
+
 import { Container } from '@/components/Container'
 import { PostTitle } from '@/components/post/Title'
 import { ReviewTitle } from '@/components/review/Title'
 import { Tags } from '@/components/post/Tags'
 import { ReviewsList } from '@/components/review/List'
-import { EntityHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
 import useFormattedDate from '@/components/useFormattedDate'
-import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
 import { typeToColorClassAndIcon } from '@/components/review/Card'
 
 export function Page (pageProps) {
