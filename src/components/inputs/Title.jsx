@@ -6,14 +6,15 @@ export function InputTitle ({ name, initialValue, handleChange }) {
 
   const handleTitleChange = (e) => {
     const value = e.target.value.trimStart()
-
-    if (value.length === 0) {
-      setError('Required!')
-    } else {
-      setError(null)
-    }
-
     setTitle(value)
+
+    let error
+    if (value.length === 0) {
+      error = 'Required'
+    } else {
+      error = null
+    }
+    setError(error)
 
     handleChange({ name, value, error })
   }
