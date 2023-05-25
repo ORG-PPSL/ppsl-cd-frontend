@@ -1,32 +1,11 @@
-import { Button } from '../Button'
 import { useState } from 'react'
+
 import { useWikimediaCommonsQueryAllImages } from '@/lib/api/wikimedia'
-import { DebouncedInput } from '../DebouncedInput'
 import { filterByFileNameExtension } from '@/lib/filename'
 
-/**
- * @param {{ onClick: () => {}, page: number, canContinue: any }}
- */
-const PaginationButtons = ({ onClick, page, canContinue }) => {
-  return (
-    <div className="flex gap-2">
-      <Button
-        className="!w-1/2"
-        disabled={page === 0}
-        onClick={() => onClick(page - 1)}
-      >
-        Previous
-      </Button>
-      <Button
-        className="!w-1/2"
-        onClick={() => onClick(page + 1)}
-        disabled={!canContinue}
-      >
-        Next
-      </Button>
-    </div>
-  )
-}
+import { Button } from '../Button'
+import { DebouncedInput } from '../DebouncedInput'
+import { PaginationButtons } from '../PaginationButtons'
 
 /**
  * @param {{ image: any, onClick: () => {}, selected: boolean }}
@@ -84,10 +63,10 @@ const Result = ({ image, onClick, selected }) => {
 }
 
 /**
- * @param {{ data, onClose: function, onSubmit: (data, url) => {} }} props
+ * @param {{ data, onClose: () => {}, onSubmit: (data, url) => {} }} props
  */
 export function ChooseImageModal (props) {
-  const { data, onClose = () => {}, onSubmit } = props
+  const { data, onClose, onSubmit } = props
 
   const [page, setPage] = useState(0)
   const [query, setQuery] = useState('')
@@ -117,7 +96,7 @@ export function ChooseImageModal (props) {
               href="#close"
               aria-label="close"
               className="close"
-              onClick={() => onClose()}
+              onClick={() => onClose?.()}
             />
             <h4 className="m-0">Choose image from Wikimedia Commons</h4>
           </header>
@@ -201,7 +180,7 @@ export function ChooseImageModal (props) {
             <Button
               type="button"
               className="mb-2 w-full"
-              onClick={() => onClose()}
+              onClick={() => onClose?.()}
             >
               Cancel
             </Button>

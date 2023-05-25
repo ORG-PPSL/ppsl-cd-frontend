@@ -24,6 +24,11 @@ export function ReviewCard ({ type, user, id, lastUpdated, postHistory }) {
 
   const timestamp = useFormattedDate(lastUpdated)
 
+  const [isEmpty, setIsEmpty] = useState(false)
+  const handleIsEmpty = (bool) => {
+    setIsEmpty(bool)
+  }
+
   // https://stackoverflow.com/a/74255034
   const contentRef = useRef(null)
   const [isClamped, setClamped] = useState(false)
@@ -49,7 +54,11 @@ export function ReviewCard ({ type, user, id, lastUpdated, postHistory }) {
   const urlToReview = `${POST_PAGE_ENDPOINT}/${id}`
 
   return (
-    <article className="m-0 mb-8 h-fit grow overflow-hidden rounded-t-xl p-0 last:mb-0">
+    <article
+      className={`m-0 mb-8 h-fit grow overflow-hidden p-0 last:mb-0 ${
+        isEmpty ? 'rounded-xl' : 'rounded-t-xl'
+      }`}
+    >
       <header className="m-0 p-0 dark:bg-gray-500 dark:bg-opacity-10">
         <Link href={urlToReview} className="flex items-center p-3 no-underline">
           <div className="flex grow flex-col">
@@ -66,8 +75,13 @@ export function ReviewCard ({ type, user, id, lastUpdated, postHistory }) {
         </Link>
       </header>
 
-      <div className="inline-block w-full p-3 dark:bg-gray-600 dark:bg-opacity-10">
+      <div
+        className={`inline-block w-full p-3 dark:bg-gray-600 dark:bg-opacity-10 ${
+          isEmpty ? 'hidden' : ''
+        }`}
+      >
         <BioHTML
+          handleIsEmpty={handleIsEmpty}
           className="line-clamp-[12]"
           ref={contentRef}
           initialContent={parsedContent}

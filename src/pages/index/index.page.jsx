@@ -1,14 +1,51 @@
 import { HardHatIcon, StickerIcon, WrenchIcon } from 'lucide-react'
 import { Container } from '@/components/Container'
-import { PostCard } from '@/components/PostCard'
+import { PostCard } from '@/components/post/Card'
 import { Link } from '@/renderer/Link'
-import { useGetLatestPosts } from '@/lib/api/posts'
+import { useGetLatestPostsByFilter } from '@/lib/api/posts'
+
+const latestPostsFilter = {
+  AND: [
+    {
+      outRelations: {
+        some: {
+          toPostId: {
+            not: 'system'
+          }
+        }
+      }
+    },
+    {
+      outRelations: {
+        some: {
+          isSystem: true,
+          toPostId: {
+            not: 'bio'
+          }
+        }
+      }
+    },
+    {
+      outRelations: {
+        some: {
+          isSystem: true,
+          toPostId: {
+            not: 'review'
+          }
+        }
+      }
+    }
+  ]
+}
 
 export function Page (pageProps) {
   const { request } = pageProps
 
   // const [page, setPage] = useState(0)
-  const { response, isLoading, isFetching } = useGetLatestPosts()
+  const { response, isLoading, isFetching } = useGetLatestPostsByFilter(
+    0,
+    latestPostsFilter
+  )
 
   return (
     <Container>
@@ -33,7 +70,7 @@ export function Page (pageProps) {
         <hr />
 
         <div className="flex flex-col gap-2">
-          <strong>Categories</strong>
+          <strong>System categories</strong>
           <div className="!grid grid-cols-2 gap-2">
             {request.result?.map((post) => {
               const postsWithoutCreatedTimestamp = {
@@ -44,7 +81,7 @@ export function Page (pageProps) {
                 }))
               }
               return (
-                <PostCard key={post.id} {...postsWithoutCreatedTimestamp} />
+                <PostCard key={post.id} post={postsWithoutCreatedTimestamp} />
               )
             })}
           </div>
@@ -58,7 +95,7 @@ export function Page (pageProps) {
             ? (
             <div className="!grid grid-cols-2 gap-2">
               {response?.result?.map((post) => (
-                <PostCard key={post.id} {...post} />
+                <PostCard key={post.id} post={post} />
               ))}
             </div>
               )

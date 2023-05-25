@@ -18,6 +18,7 @@ import { Tags } from '@/components/post/Tags'
 import { ReviewsList } from '@/components/review/List'
 import useFormattedDate from '@/components/useFormattedDate'
 import { typeToColorClassAndIcon } from '@/components/review/Card'
+import { PostsList } from '@/components/post/List'
 
 export function Page (pageProps) {
   const { urlPathname } = usePageContext()
@@ -30,7 +31,9 @@ export function Page (pageProps) {
 
   const isEntity = isOfPostType(request.outRelations, 'entity')
   const isReview = isOfPostType(request.outRelations, 'review')
-  // const isSystem = isOfPostType(request.outRelations, 'system')
+  const isBio = isOfPostType(request.outRelations, 'bio')
+  const isSystem =
+    isOfPostType(request.outRelations, 'system') || request.id === 'system'
 
   const editURL = getEditURLForPost(urlPathname, request.outRelations)
 
@@ -86,6 +89,13 @@ export function Page (pageProps) {
           </div>
         )}
 
+        {/* isBio && authors.length > 0 && (
+          <Link href={`/profile/${authors[0].id}`} className="flex items-center gap-2 py-2">
+            <UserIcon />
+            <span>Viewing bio for &quot;{authors[0].name}&quot;</span>
+          </Link>
+        ) */}
+
         <PostTitle
           title={title}
           timestamp={request.lastUpdated}
@@ -103,21 +113,7 @@ export function Page (pageProps) {
         )}
 
         {isEntity && <EntityHTML initialContent={parsedContent} />}
-        {isReview && <BioHTML initialContent={parsedContent} />}
-
-        {isEntity && (
-          <>
-            <hr className="my-8" />
-            <div>
-              <ReviewTitle
-                title="Reviews"
-                edit={{ href: `${urlPathname}/review` }}
-              />
-
-              <ReviewsList postId={request.id} />
-            </div>
-          </>
-        )}
+        {(isBio || isReview) && <BioHTML initialContent={parsedContent} />}
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-gray-500 dark:text-gray-400">
           <span>
@@ -134,6 +130,22 @@ export function Page (pageProps) {
             ))}
           </div>
         </div>
+
+        {isEntity && (
+          <>
+            <hr className="my-8" />
+            <ReviewTitle
+              title="Reviews"
+              edit={{ href: `${urlPathname}/review` }}
+            />
+
+            <ReviewsList postId={request.id} />
+          </>
+        )}
+
+        {!isReview && !isBio && (
+          <PostsList post={request} isSystem={isSystem || undefined} />
+        )}
       </div>
     </Container>
   )

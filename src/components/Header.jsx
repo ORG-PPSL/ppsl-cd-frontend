@@ -25,7 +25,7 @@ export function Header ({ className = '', title }) {
         : (
         <div className="flex flex-col items-end justify-end gap-2">
           <span>Hello, {user.name}.</span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <Link href="/profile">Profile</Link>
             <Button
               onClick={() => signOut()}
