@@ -1,23 +1,29 @@
 import { useState } from 'react'
 
-import { useGetLatestPostsByFilter } from '@/lib/api/posts'
+import { API_ENDPOINT, usePaginatedEndpoint } from '@/lib/api/posts'
 
 import { PostCard } from './Card'
 import { PaginationButtons } from '../PaginationButtons'
+
+const url = new URL('./posts/filter', API_ENDPOINT)
 
 export function PostsList ({ post, isSystem }) {
   const [{ title }] = post.postHistory
 
   const [page, setPage] = useState(0)
-  const { response, isLoading, isFetching, canContinue } =
-    useGetLatestPostsByFilter(page, {
+  const { response, isLoading, isFetching, canContinue } = usePaginatedEndpoint(
+    page,
+    url,
+    {
       outRelations: {
         some: {
           isSystem,
           toPostId: post.id
         }
       }
-    })
+    },
+    `posts-list-${post.id}`
+  )
 
   return (
     <>

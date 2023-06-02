@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import { HardHatIcon, StickerIcon, WrenchIcon } from 'lucide-react'
-import { Container } from '@/components/Container'
-import { PostCard } from '@/components/post/Card'
+
 import { Link } from '@/renderer/Link'
-import { useGetLatestPostsByFilter } from '@/lib/api/posts'
+
+import { API_ENDPOINT, usePaginatedEndpoint } from '@/lib/api/posts'
+
+import { PostCard } from '@/components/post/Card'
+import { Container } from '@/components/Container'
+import { PaginationButtons } from '@/components/PaginationButtons'
 
 const latestPostsFilter = {
   AND: [
@@ -38,13 +43,17 @@ const latestPostsFilter = {
   ]
 }
 
+const url = new URL('./posts/filter', API_ENDPOINT)
+
 export function Page (pageProps) {
   const { request } = pageProps
 
-  // const [page, setPage] = useState(0)
-  const { response, isLoading, isFetching } = useGetLatestPostsByFilter(
-    0,
-    latestPostsFilter
+  const [page, setPage] = useState(0)
+  const { response, isLoading, isFetching, canContinue } = usePaginatedEndpoint(
+    page,
+    url,
+    latestPostsFilter,
+    'latest-posts'
   )
 
   return (
@@ -93,11 +102,25 @@ export function Page (pageProps) {
           <strong>Latest edited posts</strong>
           {!isLoading && !isFetching
             ? (
-            <div className="!grid grid-cols-2 gap-2">
-              {response?.result?.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
-            </div>
+            <>
+              <PaginationButtons
+                size="small"
+                onClick={setPage}
+                page={page}
+                canContinue={canContinue}
+              />
+              <div className="!grid grid-cols-2 gap-2">
+                {response?.result?.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </div>
+              <PaginationButtons
+                size="small"
+                onClick={setPage}
+                page={page}
+                canContinue={canContinue}
+              />
+            </>
               )
             : (
             <label className="flex flex-col gap-2">

@@ -13,12 +13,11 @@ import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/rea
 
 import { Container } from '@/components/Container'
 import { PostTitle } from '@/components/post/Title'
-import { ReviewTitle } from '@/components/review/Title'
 import { Tags } from '@/components/post/Tags'
-import { ReviewsList } from '@/components/review/List'
 import useFormattedDate from '@/components/useFormattedDate'
 import { typeToColorClassAndIcon } from '@/components/review/Card'
 import { PostsList } from '@/components/post/List'
+import { Reviews } from '@/components/review'
 
 export function Page (pageProps) {
   const { urlPathname } = usePageContext()
@@ -134,12 +133,7 @@ export function Page (pageProps) {
         {isEntity && (
           <>
             <hr className="my-8" />
-            <ReviewTitle
-              title="Reviews"
-              edit={{ href: `${urlPathname}/review` }}
-            />
-
-            <ReviewsList postId={request.id} />
+            <Reviews postId={request.id} />
           </>
         )}
 

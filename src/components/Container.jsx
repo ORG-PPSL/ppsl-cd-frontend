@@ -9,7 +9,7 @@ export function Container ({ className = '', header = {}, children }) {
           <Header {...header} className="w-full" />
         </nav>
       </div>
-      <main className="container relative !pt-0">
+      <main className="container relative !py-0">
         <article className={`m-0 px-0 pt-0 ${className} rounded-t-none`}>
           {children}
           <Footer />

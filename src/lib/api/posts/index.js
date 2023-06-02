@@ -3,11 +3,15 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-const jsonHeaders = new Headers()
-jsonHeaders.append('content-type', 'application/json')
+// 50 is current database max take for pagination.
+const MAX_PAGINATION_TAKE = 50
+
+const jsonHeaders = new Headers({ 'content-type': 'application/json' })
 
 const origin = globalThis?.location?.origin
-const API_ENDPOINT = origin ? `${origin}/api/` : process.env.API_ENDPOINT
+export const API_ENDPOINT = origin
+  ? `${origin}/api/`
+  : process.env.API_ENDPOINT
 
 export async function getPostById (id) {
   const url = new URL(`./posts/id/${id}`, API_ENDPOINT)
@@ -50,24 +54,27 @@ export async function getUserReviewByPostId (id, cookie) {
   return await res.json()
 }
 
-export function useGetLatestPostsByFilter (page = 0, filter) {
+export function usePaginatedEndpoint (
+  page = 0,
+  url,
+  filter,
+  id = 'paginated-endpoint'
+) {
   const [cursor, setCursor] = useState()
 
   const { error, isInitialLoading, isLoading, isFetching, data } = useQuery({
-    queryKey: ['latest-posts', page],
+    queryKey: [id, page],
     queryFn: async ({ queryKey: [_, page] }) => {
-      const url = new URL('./posts/filter', API_ENDPOINT)
-
       if (page) {
-        url.searchParams.append('cursor', cursor)
+        url.searchParams.set('cursor', cursor)
       }
 
       const body = filter
 
       const res = await fetch(url, {
-        method: 'POST',
-        headers: jsonHeaders,
-        body: JSON.stringify(body)
+        method: body ? 'POST' : 'GET',
+        headers: body ? jsonHeaders : undefined,
+        body: body ? JSON.stringify(body) : undefined
       })
 
       const json = await res.json()
@@ -83,49 +90,9 @@ export function useGetLatestPostsByFilter (page = 0, filter) {
     cacheTime: Infinity
   })
 
-  const canContinue =
-    !!cursor && cursor !== data.result[data.result.length - 1].id
+  const maxPage = data ? Math.ceil(data.count / MAX_PAGINATION_TAKE) : null
 
-  return {
-    error,
-    page,
-    canContinue,
-    response: data,
-    isLoading,
-    isFetching,
-    isInitialLoading
-  }
-}
-
-export function useGetReviewsByPostId (postId, page = 0) {
-  const [cursor, setCursor] = useState()
-
-  const { error, isInitialLoading, isLoading, isFetching, data } = useQuery({
-    queryKey: ['latest-posts', postId, page],
-    queryFn: async ({ queryKey: [_, postId] }) => {
-      const url = new URL(`./posts/id/${postId}/reviews`, API_ENDPOINT)
-
-      if (page) {
-        url.searchParams.append('cursor', cursor)
-      }
-
-      const res = await fetch(url)
-
-      const json = await res.json()
-
-      if (json.cursor) {
-        setCursor(json.cursor)
-      }
-
-      return json
-    },
-    keepPreviousData: true,
-    staleTime: Infinity,
-    cacheTime: Infinity
-  })
-
-  const canContinue =
-    !!cursor && cursor !== data.result[data.result.length - 1].id
+  const canContinue = maxPage ? page !== maxPage - 1 : false
 
   return {
     error,
