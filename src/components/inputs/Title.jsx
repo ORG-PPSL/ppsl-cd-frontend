@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function InputTitle ({ name, initialValue, handleChange }) {
   const [title, setTitle] = useState(initialValue || '')
@@ -18,6 +18,11 @@ export function InputTitle ({ name, initialValue, handleChange }) {
 
     handleChange({ name, value, error })
   }
+
+  useEffect(() => {
+    handleTitleChange({ target: { value: title } })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
