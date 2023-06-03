@@ -20,9 +20,12 @@ export async function render (pageContext) {
   )
 
   // See https://vite-plugin-ssr.com/head
-  const { documentProps } = pageContext.exports
-  const title = (documentProps && documentProps.title) || 'PPSL CD'
-  const desc = (documentProps && documentProps.description) || 'PPSL CD'
+
+  const { documentProps, getDocumentProps } = pageContext.exports
+
+  const title = documentProps?.title || getDocumentProps?.(pageProps)?.title
+  const desc =
+    documentProps?.description || getDocumentProps?.(pageProps)?.description
 
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="en">
@@ -31,7 +34,7 @@ export async function render (pageContext) {
         <!-- <link rel="icon" href="" /> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
-        <title>${title}</title>
+        <title>${title && `${title} - `}PPSL CD</title>
       </head>
       <body>
         <div id="root">${dangerouslySkipEscape(pageHtml)}</div>

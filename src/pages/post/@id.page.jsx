@@ -21,7 +21,7 @@ import { Reviews } from '@/components/review'
 
 export function Page (pageProps) {
   const { urlPathname } = usePageContext()
-  const { request } = pageProps
+  const { request, html } = pageProps
 
   const [{ title, content }] = request.postHistory
   const [authors, setAuthors] = useState([])
@@ -111,8 +111,16 @@ export function Page (pageProps) {
           <Tags relations={request.outRelations} />
         )}
 
-        {isEntity && <EntityHTML initialContent={parsedContent} />}
-        {(isBio || isReview) && <BioHTML initialContent={parsedContent} />}
+        {html
+          ? (
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+            )
+          : (
+          <>
+            {isEntity && <EntityHTML initialContent={parsedContent} />}
+            {(isBio || isReview) && <BioHTML initialContent={parsedContent} />}
+          </>
+            )}
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-gray-500 dark:text-gray-400">
           <span>
@@ -143,4 +151,26 @@ export function Page (pageProps) {
       </div>
     </Container>
   )
+}
+
+// getDocumentProps() can use fetched data to provide <title> and <meta name="description">
+export function getDocumentProps (pageProps) {
+  const { request } = pageProps
+
+  const [{ title: postHistoryTitle }] = request.postHistory
+
+  let title = postHistoryTitle
+
+  const isReview = isOfPostType(request.outRelations, 'review')
+
+  if (isReview) {
+    const [{ title: reviewingPostHistoryTitle }] =
+      request.reviewing.toPost.postHistory
+
+    title = `"${postHistoryTitle}" reviewing ${reviewingPostHistoryTitle}`
+  }
+
+  return {
+    title
+  }
 }
