@@ -55,7 +55,7 @@ export function Page (pageProps) {
     }
 
     try {
-      const res = updatePostById(bio.postId, body)
+      const res = await updatePostById(bio.postId, body)
 
       console.log(await res.text())
 
