@@ -33,8 +33,9 @@ export async function render (pageContext) {
         <meta charset="UTF-8" />
         <!-- <link rel="icon" href="" /> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="${desc}" />
-        <title>${title && `${title} - `}PPSL CD</title>
+        ${desc ? `<meta name="description" content="${desc}" />` : ''}<title>${
+    title ? `${title} - ` : ''
+  }PPSL CD</title>
       </head>
       <body>
         <div id="root">${dangerouslySkipEscape(pageHtml)}</div>
