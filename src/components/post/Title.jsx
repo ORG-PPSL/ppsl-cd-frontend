@@ -1,4 +1,4 @@
-import { EditIcon } from 'lucide-react'
+import { ClockIcon, EditIcon } from 'lucide-react'
 
 import { Link } from '#/renderer/Link'
 
@@ -14,9 +14,19 @@ export function PostTitle (props) {
     <div className="mb-4 flex flex-row items-center justify-between">
       <hgroup className="m-0 grow">
         <h3>{title}</h3>
-        <span className="!text-xs text-gray-500 dark:text-gray-400">
-          {formattedTimestamp}
-        </span>
+        {formattedTimestamp
+          ? (
+          <small className="inline-flex items-center gap-1 !text-xs text-gray-500 dark:text-gray-400">
+            <ClockIcon size="1em" /> Edited: {formattedTimestamp}
+          </small>
+            )
+          : timestamp
+            ? (
+          <small className="my-1 block h-4 w-1/4 animate-pulse bg-slate-400 bg-opacity-25"></small>
+              )
+            : (
+          <span></span>
+              )}
       </hgroup>
 
       {edit?.href

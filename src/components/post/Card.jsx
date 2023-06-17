@@ -20,3 +20,14 @@ export function PostCard ({ post }) {
     </Link>
   )
 }
+
+export function PostCardPlaceholder ({ count }) {
+  return [...Array(count || 1)].map((_, i) => (
+    <article className="m-0 h-full p-0" key={i}>
+      <header className="m-0 flex h-full flex-col p-3">
+        <strong className="h-6 w-1/4 animate-pulse bg-slate-400 bg-opacity-25"></strong>
+        <small className="h-4 w-1/2 animate-pulse bg-slate-400 bg-opacity-25"></small>
+      </header>
+    </article>
+  ))
+}

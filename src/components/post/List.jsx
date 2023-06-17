@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { API_ENDPOINT, usePaginatedEndpoint } from '#/lib/api/posts'
 
-import { PostCard } from './Card'
+import { PostCard, PostCardPlaceholder } from './Card'
 import { PaginationButtons } from '../PaginationButtons'
 
 const url = new URL('./posts/filter', API_ENDPOINT)
@@ -34,33 +34,32 @@ export function PostsList ({ post, isSystem }) {
           &quot;{title}&quot;
         </strong>
 
-        {(isLoading || isFetching) && (
-          <label className="flex flex-col gap-2">
-            <span>Loading...</span>
-            <progress />
-          </label>
+        {!isLoading && !isFetching && !!response.result.length && (
+          <PaginationButtons
+            size="small"
+            onClick={setPage}
+            page={page}
+            canContinue={canContinue}
+          />
         )}
-
-        {response?.result?.length > 0 && (
-          <>
-            <PaginationButtons
-              size="small"
-              onClick={setPage}
-              page={page}
-              canContinue={canContinue}
-            />
-            <div className="!grid grid-cols-2 gap-2">
-              {response?.result?.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
-            </div>
-            <PaginationButtons
-              size="small"
-              onClick={setPage}
-              page={page}
-              canContinue={canContinue}
-            />
-          </>
+        <div className="!grid grid-cols-2 gap-2">
+          {!isLoading && !isFetching
+            ? (
+                response?.result?.map((post) => (
+              <PostCard key={post.id} post={post} />
+                ))
+              )
+            : (
+            <PostCardPlaceholder count={6} />
+              )}
+        </div>
+        {!isLoading && !isFetching && !!response.result.length && (
+          <PaginationButtons
+            size="small"
+            onClick={setPage}
+            page={page}
+            canContinue={canContinue}
+          />
         )}
 
         {response?.result?.length === 0 && (

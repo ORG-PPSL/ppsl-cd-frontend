@@ -95,3 +95,26 @@ export function ReviewCard ({ type, user, id, lastUpdated, postHistory }) {
     </article>
   )
 }
+
+export function ReviewCardPlaceholder ({ count }) {
+  return [...Array(count || 1)].map((_, i) => (
+    <article
+      className="m-0 mb-8 h-fit grow overflow-hidden rounded-xl p-0 last:mb-0"
+      key={i}
+    >
+      <header className="m-0 p-0 dark:bg-gray-500 dark:bg-opacity-10">
+        <div className="flex items-center p-3">
+          <div className="flex grow flex-col gap-1">
+            <span className="block h-7 w-3/4 animate-pulse bg-slate-400 bg-opacity-25"></span>
+            <small className="block h-4 w-1/3 animate-pulse bg-slate-400 bg-opacity-25 text-xs"></small>
+          </div>
+          <div
+            className={
+              'flex h-12 w-12 items-center justify-center bg-slate-400 bg-opacity-75 text-white text-opacity-75'
+            }
+          />
+        </div>
+      </header>
+    </article>
+  ))
+}

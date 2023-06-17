@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { CheckCircleIcon, CircleDashedIcon } from 'lucide-react'
 
 import { useWikimediaCommonsQueryAllImages } from '#/lib/api/wikimedia'
 import { filterByFileNameExtension } from '#/lib/filename'
+
+import { titleFromURLString } from '../ppsl-cd-lexical-shared/src/editors/Entity/editor'
 
 import { Button } from '../Button'
 import { DebouncedInput } from '../DebouncedInput'
@@ -33,24 +36,41 @@ const Result = ({ image, onClick, selected }) => {
   return (
     <Button
       key={image.name}
-      className={`flex flex-col items-center overflow-hidden p-0 ${
-        selected && 'bg-blue-500'
+      className={`relative flex flex-col items-center overflow-hidden p-0 ${
+        selected && 'bg-gray-500 bg-opacity-50'
       }`}
       onClick={() => isSupported && onClick(image.url)}
     >
       {isSupported
         ? (
         <>
+          <div className="flex w-full items-center justify-center gap-2 rounded rounded-b-none border-t border-blue-500 bg-blue-900 bg-opacity-75 p-2 text-white">
+            <div>
+              {selected
+                ? (
+                <CheckCircleIcon size="1em" />
+                  )
+                : (
+                <CircleDashedIcon size="1em" />
+                  )}
+            </div>
+            <span className="text-ellipsis">{fileName}</span>
+          </div>
           <div
             data-unblur-text={blur ? 'Unblur' : ''}
-            className="relative flex w-full grow items-center justify-center after:absolute after:content-[attr(data-unblur-text)]"
+            className="relative flex min-h-[100px] w-full grow items-center justify-center after:absolute after:content-[attr(data-unblur-text)]"
             onClick={handleUnblurClick}
           >
-            <img src={image.url} className={blur ? 'blur-3xl' : ''} />
+            <img
+              src={image.url}
+              className={`${blur ? 'blur-3xl' : ''} max-h-96`}
+            />
           </div>
-          <span className="w-full text-ellipsis rounded rounded-b-none border-t border-blue-500 bg-blue-500 bg-opacity-50 p-2">
-            {fileName}
-          </span>
+          {selected && (
+            <div className="absolute bottom-0 left-0 w-full bg-[#1095c1] p-2 leading-none text-white">
+              Selected
+            </div>
+          )}
         </>
           )
         : (
@@ -69,8 +89,8 @@ export function ChooseImageModal (props) {
   const { data, onClose, onSubmit } = props
 
   const [page, setPage] = useState(0)
-  const [query, setQuery] = useState('')
-  const [selectedImage, setSelectedImage] = useState()
+  const [query, setQuery] = useState(data.url)
+  const [selectedImage, setSelectedImage] = useState('')
 
   /**
    * @param {React.FormEvent<HTMLFormElement>} e
@@ -90,7 +110,7 @@ export function ChooseImageModal (props) {
   return (
     <form onSubmit={onSubmitCatch}>
       <dialog role="dialog" open>
-        <article className="!container">
+        <article className="!container relative pb-0">
           <header>
             <a
               href="#close"
@@ -98,7 +118,7 @@ export function ChooseImageModal (props) {
               className="close"
               onClick={() => onClose?.()}
             />
-            <h4 className="m-0">Choose image from Wikimedia Commons</h4>
+            <h4 className="m-0">Choose image</h4>
           </header>
 
           <div>
@@ -116,18 +136,23 @@ export function ChooseImageModal (props) {
               .
             </strong>
           </div>
-          <DebouncedInput
-            className="!my-1"
-            name="query"
-            placeholder="Search..."
-            value={query}
-            onChange={(value) => {
-              setQuery(() => {
-                setPage(0)
-                return value
-              })
-            }}
-          />
+          <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-2">
+            <DebouncedInput
+              className="!my-1"
+              name="query"
+              placeholder="Search..."
+              value={query}
+              onChange={(value) => {
+                setQuery(() => {
+                  setPage(0)
+                  return value
+                })
+              }}
+            />
+            <select className="m-0 w-full sm:w-64">
+              <option value="commons">Wikimedia Commons</option>
+            </select>
+          </div>
 
           <div className="mb-4">
             <strong>
@@ -176,15 +201,32 @@ export function ChooseImageModal (props) {
             </>
               )}
 
-          <footer>
+          <footer className="sticky bottom-0 mb-0 flex h-12 gap-4 bg-[#18232c] py-2">
             <Button
               type="button"
-              className="mb-2 w-full"
+              className="w-full p-2 text-sm leading-none"
               onClick={() => onClose?.()}
             >
               Cancel
             </Button>
-            <button disabled={!selectedImage}>Submit</button>
+            <Button
+              type={undefined}
+              className="w-full p-2 text-sm leading-none text-white"
+              disabled={!selectedImage}
+            >
+              {selectedImage
+                ? (
+                <>
+                  Use{' '}
+                  <strong>
+                    &quot;{titleFromURLString(selectedImage)}&quot;
+                  </strong>
+                </>
+                  )
+                : (
+                    'Select an image by pressing the title'
+                  )}
+            </Button>
           </footer>
         </article>
       </dialog>

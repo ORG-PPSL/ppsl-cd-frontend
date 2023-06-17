@@ -4,6 +4,7 @@ import { API_ENDPOINT, usePaginatedEndpoint } from '#/lib/api/posts'
 
 import { ReviewsList } from './List'
 import { ReviewTitle } from './Title'
+import { ReviewCardPlaceholder } from './Card'
 
 export function Reviews ({ postId }) {
   const { urlPathname } = usePageContext()
@@ -20,7 +21,7 @@ export function Reviews ({ postId }) {
   return (
     <>
       <ReviewTitle
-        title={`Reviews x${response?.count ?? 0}`}
+        title={`Reviews ${response?.count ? `x${response.count}` : ''}`}
         edit={{ href: `${urlPathname}/review` }}
       />
 
@@ -29,10 +30,12 @@ export function Reviews ({ postId }) {
         <ReviewsList reviews={response.result} title="Latest reviews" />
           )
         : (
-        <label className="flex flex-col gap-2">
-          <span>Loading...</span>
-          <progress />
-        </label>
+        <div className="flex flex-col gap-2">
+          <strong>Latest reviews</strong>
+          <div className="flex flex-col lg:block lg:columns-2">
+            <ReviewCardPlaceholder count={4} />
+          </div>
+        </div>
           )}
     </>
   )

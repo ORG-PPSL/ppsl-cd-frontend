@@ -112,7 +112,7 @@ export function ReviewForm ({ post, review }) {
   return (
     <>
       <div className="mb-4 px-8">
-        <hgroup className="m-0">
+        <hgroup className="m-0 mb-2">
           <h4 className="text-gray-500 dark:text-gray-400">
             <Link href="/terms" target="_blank">
               Don&apos;t forget to read the ToS!
@@ -121,8 +121,8 @@ export function ReviewForm ({ post, review }) {
         </hgroup>
         {!isSaving
           ? (
-          <div className="flex items-start gap-2">
-            <label className="m-0">
+          <div className="items-start gap-2 md:flex">
+            <label className="m-0 mb-2 md:mb-0">
               <select
                 className="m-0 w-[unset]"
                 value={form.type}
@@ -134,7 +134,7 @@ export function ReviewForm ({ post, review }) {
                 <option value="POSITIVE">Positive</option>
               </select>
             </label>
-            <label className="m-0 grow">
+            <label className="m-0 mb-2 grow md:mb-0">
               <InputTitle
                 name={TITLE}
                 initialValue={form.title}

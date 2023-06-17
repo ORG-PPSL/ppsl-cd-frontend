@@ -32,7 +32,7 @@ export function Page (pageProps) {
 
       {isEntity && (
         <>
-          <hgroup className="m-0 bg-opacity-10 p-4 pb-2 sm:p-8 sm:pb-2">
+          <hgroup className="m-0 p-4 pb-2 sm:p-8 sm:pb-2">
             <h3>Editing an entity</h3>
             <p className="m-0 text-gray-500 dark:text-gray-400">
               <Link href="/terms" target="_blank">

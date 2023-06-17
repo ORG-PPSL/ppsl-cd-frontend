@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ChevronLeftIcon } from 'lucide-react'
+import { ChevronLeftIcon, InfoIcon, UserIcon } from 'lucide-react'
 
 import { Link } from '#/renderer/Link'
 import { usePageContext } from '#/renderer/usePageContext'
@@ -123,18 +123,30 @@ export function Page (pageProps) {
             )}
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-gray-500 dark:text-gray-400">
-          <span>
-            &quot;{title}&quot; post created: {createdTimestamp}
+          <span className="inline-flex items-center gap-1">
+            <InfoIcon size="1em" />
+            &quot;{title}&quot; post created:{' '}
+            {createdTimestamp || (
+              <span className="inline-block h-3 w-1/4 animate-pulse bg-slate-400 bg-opacity-25"></span>
+            )}
           </span>
           <div className="flex flex-wrap gap-1">
-            <span>Author{authors.length > 1 && 's'}: </span>
+            <span className="inline-flex items-center gap-1">
+              <UserIcon size="1em" /> Author{authors.length > 1 && 's'}:
+            </span>
 
-            {authors.map((author, index, arr) => (
-              <Link key={author.id} href={`/profile/${author.id}`}>
-                {author.name}
-                {index < arr.length - 1 && ', '}
-              </Link>
-            ))}
+            {authors.length
+              ? (
+                  authors.map((author, index, arr) => (
+                <Link key={author.id} href={`/profile/${author.id}`}>
+                  {author.name}
+                  {index < arr.length - 1 && ', '}
+                </Link>
+                  ))
+                )
+              : (
+              <span className="h-4 w-1/4 animate-pulse bg-slate-400 bg-opacity-25"></span>
+                )}
           </div>
         </div>
 
