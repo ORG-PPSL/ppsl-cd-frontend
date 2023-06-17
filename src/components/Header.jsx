@@ -1,7 +1,7 @@
 import { signOut } from 'fastify-next-auth/client'
 
-import { Link } from '@/renderer/Link'
-import { usePageContext } from '@/renderer/usePageContext'
+import { Link } from '#/renderer/Link'
+import { usePageContext } from '#/renderer/usePageContext'
 import { Button } from './Button'
 
 export function Header ({ className = '', title }) {

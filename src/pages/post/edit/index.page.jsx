@@ -1,11 +1,11 @@
-import { isOfPostType } from '@/lib/post'
+import { isOfPostType } from '#/lib/post'
 
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
 
-import { Container } from '@/components/Container'
-import { ReviewForm } from '@/components/review/Form'
-import { BioForm } from '@/components/bio/Form'
-import { EntityForm } from '@/components/entity/Form'
+import { Container } from '#/components/Container'
+import { ReviewForm } from '#/components/review/Form'
+import { BioForm } from '#/components/bio/Form'
+import { EntityForm } from '#/components/entity/Form'
 
 export function Page (pageProps) {
   const { request } = pageProps

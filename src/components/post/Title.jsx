@@ -1,6 +1,6 @@
 import { EditIcon } from 'lucide-react'
 
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
 
 import { Button } from '../Button'
 import useFormattedDate from '../useFormattedDate'

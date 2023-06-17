@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { HardHatIcon, StickerIcon, WrenchIcon } from 'lucide-react'
 
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
 
-import { API_ENDPOINT, usePaginatedEndpoint } from '@/lib/api/posts'
+import { API_ENDPOINT, usePaginatedEndpoint } from '#/lib/api/posts'
 
-import { PostCard } from '@/components/post/Card'
-import { Container } from '@/components/Container'
-import { PaginationButtons } from '@/components/PaginationButtons'
+import { PostCard } from '#/components/post/Card'
+import { Container } from '#/components/Container'
+import { PaginationButtons } from '#/components/PaginationButtons'
 
 const latestPostsFilter = {
   AND: [

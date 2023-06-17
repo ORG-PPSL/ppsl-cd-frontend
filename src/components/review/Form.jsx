@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { encode } from '@msgpack/msgpack'
 
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
 
-import { tryParseContent } from '@/lib/api/posts/utils'
-import { updatePostById, upsertReviewForPostId } from '@/lib/api/posts'
+import { tryParseContent } from '#/lib/api/posts/utils'
+import { updatePostById, upsertReviewForPostId } from '#/lib/api/posts'
 
 import { BioEditor } from '../ppsl-cd-lexical-shared/src/editors/Bio/editor'
 import { InputTitle } from '../inputs/Title'

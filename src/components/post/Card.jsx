@@ -1,4 +1,5 @@
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
+
 import useFormattedDate from '../useFormattedDate'
 
 const POST_PAGE_ENDPOINT = '/post'

@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
 import { ChevronLeftIcon } from 'lucide-react'
 
-import { Link } from '@/renderer/Link'
-import { usePageContext } from '@/renderer/usePageContext'
+import { Link } from '#/renderer/Link'
+import { usePageContext } from '#/renderer/usePageContext'
 
-import { tryParseContent } from '@/lib/api/posts/utils'
-import { getAuthorsForPostId } from '@/lib/api/posts'
-import { getEditURLForPost, isOfPostType } from '@/lib/post'
+import { tryParseContent } from '#/lib/api/posts/utils'
+import { getAuthorsForPostId } from '#/lib/api/posts'
+import { getEditURLForPost, isOfPostType } from '#/lib/post'
 
-import { EntityHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
-import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
+import { EntityHTML } from '#/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
+import { BioHTML } from '#/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
 
-import { Container } from '@/components/Container'
-import { PostTitle } from '@/components/post/Title'
-import { Tags } from '@/components/post/Tags'
-import useFormattedDate from '@/components/useFormattedDate'
-import { typeToColorClassAndIcon } from '@/components/review/Card'
-import { PostsList } from '@/components/post/List'
-import { Reviews } from '@/components/review'
+import { Container } from '#/components/Container'
+import { PostTitle } from '#/components/post/Title'
+import { Tags } from '#/components/post/Tags'
+import useFormattedDate from '#/components/useFormattedDate'
+import { typeToColorClassAndIcon } from '#/components/review/Card'
+import { PostsList } from '#/components/post/List'
+import { Reviews } from '#/components/review'
 
 export function Page (pageProps) {
   const { urlPathname } = usePageContext()

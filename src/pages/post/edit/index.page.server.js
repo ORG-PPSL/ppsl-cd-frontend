@@ -1,4 +1,4 @@
-import { getPostById } from '@/lib/api/posts'
+import { getPostById } from '#/lib/api/posts'
 
 export async function onBeforeRender (pageContext) {
   if (!pageContext.user) {

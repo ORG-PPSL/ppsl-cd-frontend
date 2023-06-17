@@ -1,6 +1,6 @@
-import { usePageContext } from '@/renderer/usePageContext'
+import { usePageContext } from '#/renderer/usePageContext'
 
-import { API_ENDPOINT, usePaginatedEndpoint } from '@/lib/api/posts'
+import { API_ENDPOINT, usePaginatedEndpoint } from '#/lib/api/posts'
 
 import { ReviewsList } from './List'
 import { ReviewTitle } from './Title'

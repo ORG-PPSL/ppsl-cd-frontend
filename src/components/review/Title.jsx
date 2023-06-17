@@ -1,6 +1,6 @@
 import { PlusSquareIcon } from 'lucide-react'
 
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
 
 export function ReviewTitle (props) {
   const { title = '', edit } = props

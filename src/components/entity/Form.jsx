@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { encode } from '@msgpack/msgpack'
 
-import { tryParseContent } from '@/lib/api/posts/utils'
-import { updatePostById } from '@/lib/api/posts'
+import { tryParseContent } from '#/lib/api/posts/utils'
+import { updatePostById } from '#/lib/api/posts'
 
 import { EntityEditor } from '../ppsl-cd-lexical-shared/src/editors/Entity/editor'
 import { InputTitle } from '../inputs/Title'

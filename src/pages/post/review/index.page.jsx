@@ -1,10 +1,10 @@
-import { tryParseContent } from '@/lib/api/posts/utils'
+import { tryParseContent } from '#/lib/api/posts/utils'
 
-import { EntityHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
+import { EntityHTML } from '#/components/ppsl-cd-lexical-shared/src/editors/Entity/read'
 
-import { Container } from '@/components/Container'
-import { PostTitle } from '@/components/post/Title'
-import { ReviewForm } from '@/components/review/Form'
+import { Container } from '#/components/Container'
+import { PostTitle } from '#/components/post/Title'
+import { ReviewForm } from '#/components/review/Form'
 
 export function Page (pageProps) {
   const { post, review } = pageProps

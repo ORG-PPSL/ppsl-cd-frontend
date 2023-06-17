@@ -1,6 +1,6 @@
-import { isOfPostType } from '@/lib/post'
-import { getPostById } from '@/lib/api/posts'
-import { getPostHistoryHTMLByPostHistoryId } from '@/lib/api/lexical'
+import { isOfPostType } from '#/lib/post'
+import { getPostById } from '#/lib/api/posts'
+import { getPostHistoryHTMLByPostHistoryId } from '#/lib/api/lexical'
 
 export async function onBeforeRender (pageContext) {
   const { id } = pageContext.routeParams

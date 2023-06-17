@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { useWikimediaCommonsQueryAllImages } from '@/lib/api/wikimedia'
-import { filterByFileNameExtension } from '@/lib/filename'
+import { useWikimediaCommonsQueryAllImages } from '#/lib/api/wikimedia'
+import { filterByFileNameExtension } from '#/lib/filename'
 
 import { Button } from '../Button'
 import { DebouncedInput } from '../DebouncedInput'

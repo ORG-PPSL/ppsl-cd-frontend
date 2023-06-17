@@ -2,16 +2,16 @@ import { useRef, useState } from 'react'
 import { encode } from '@msgpack/msgpack'
 import { EditIcon, XIcon } from 'lucide-react'
 
-import cdROMImage from '@/assets/CD-ROM.png'
+import cdROMImage from '#/assets/CD-ROM.png'
 
-import { tryParseContent } from '@/lib/api/posts/utils'
-import { updatePostById } from '@/lib/api/posts'
+import { tryParseContent } from '#/lib/api/posts/utils'
+import { updatePostById } from '#/lib/api/posts'
 
-import { BioEditor } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/editor'
-import { BioHTML } from '@/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
+import { BioEditor } from '#/components/ppsl-cd-lexical-shared/src/editors/Bio/editor'
+import { BioHTML } from '#/components/ppsl-cd-lexical-shared/src/editors/Bio/read'
 
-import { Container } from '@/components/Container'
-import { PostTitle } from '@/components/post/Title'
+import { Container } from '#/components/Container'
+import { PostTitle } from '#/components/post/Title'
 
 export function Page (pageProps) {
   const [edit, setEdit] = useState(false)

@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { encode } from '@msgpack/msgpack'
 import { Loader2Icon } from 'lucide-react'
 
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
 
-import { EntityEditor } from '@/components/ppsl-cd-lexical-shared/src/editors/Entity/editor'
+import { EntityEditor } from '#/components/ppsl-cd-lexical-shared/src/editors/Entity/editor'
 
-import { Container } from '@/components/Container'
-import { InputTitle } from '@/components/inputs/Title'
+import { Container } from '#/components/Container'
+import { InputTitle } from '#/components/inputs/Title'
 
 const LANGUAGE = 'language'
 const TITLE = 'title'

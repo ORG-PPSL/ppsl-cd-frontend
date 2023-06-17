@@ -1,4 +1,4 @@
-import { getUserById } from '@/lib/api/user'
+import { getUserById } from '#/lib/api/user'
 
 export async function onBeforeRender (pageContext) {
   // if (!pageContext.user) {

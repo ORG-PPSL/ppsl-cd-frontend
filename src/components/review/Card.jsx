@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { InfoIcon, ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react'
 
-import { Link } from '@/renderer/Link'
-import { tryParseContent } from '@/lib/api/posts/utils'
+import { Link } from '#/renderer/Link'
+import { tryParseContent } from '#/lib/api/posts/utils'
 
 import { BioHTML } from '../ppsl-cd-lexical-shared/src/editors/Bio/read'
 import useFormattedDate from '../useFormattedDate'

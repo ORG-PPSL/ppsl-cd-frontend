@@ -1,4 +1,4 @@
-import { ReviewCard } from '@/components/review/Card'
+import { ReviewCard } from '#/components/review/Card'
 
 export function ReviewsList ({ title = '', reviews }) {
   return (

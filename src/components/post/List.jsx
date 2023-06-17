@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { API_ENDPOINT, usePaginatedEndpoint } from '@/lib/api/posts'
+import { API_ENDPOINT, usePaginatedEndpoint } from '#/lib/api/posts'
 
 import { PostCard } from './Card'
 import { PaginationButtons } from '../PaginationButtons'

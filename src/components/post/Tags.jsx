@@ -1,6 +1,6 @@
 import { LockIcon } from 'lucide-react'
 
-import { Link } from '@/renderer/Link'
+import { Link } from '#/renderer/Link'
 
 /**
  * @param {{ relations: Array<{isSystem: boolean, toPost: { id: string, postHistory: Array<{language: string, title: string}>}> } }}

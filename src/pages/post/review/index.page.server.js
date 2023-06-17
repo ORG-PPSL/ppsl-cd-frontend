@@ -1,4 +1,4 @@
-import { getPostById, getUserReviewByPostId } from '@/lib/api/posts'
+import { getPostById, getUserReviewByPostId } from '#/lib/api/posts'
 
 export async function onBeforeRender (pageContext) {
   if (!pageContext.user) {

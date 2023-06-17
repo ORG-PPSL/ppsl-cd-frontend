@@ -1,5 +1,5 @@
-import { Link } from '@/renderer/Link'
-import { usePageContext } from '@/renderer/usePageContext'
+import { Link } from '#/renderer/Link'
+import { usePageContext } from '#/renderer/usePageContext'
 
 export function Footer () {
   const { urlPathname } = usePageContext()
