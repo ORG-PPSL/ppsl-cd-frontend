@@ -1,11 +1,11 @@
-// Note that this file isn't processed by Vite, see https://github.com/brillout/vite-plugin-ssr/issues/562
+// Note that this file isn't processed by Vite, see https://github.com/vikejs/vike/issues/562
 
 import * as dotenv from 'dotenv'
 
 import { fileURLToPath, URL } from 'url'
 import express from 'express'
 import compression from 'compression'
-import { renderPage } from 'vite-plugin-ssr/server'
+import { renderPage } from 'vike/server'
 dotenv.config()
 
 const isProduction = !process.argv.includes('--dev')
@@ -57,19 +57,25 @@ async function startServer () {
 
     const pageContext = await renderPage(pageContextInit)
 
-    if (pageContext.redirectTo) return res.redirect(307, pageContext.redirectTo)
+    if (pageContext.redirectTo) {
+      return res.redirect(307, pageContext.redirectTo)
+    }
 
     const { httpResponse } = pageContext
 
     if (!httpResponse) return next()
 
-    const { body, statusCode, contentType, earlyHints } = httpResponse
+    const { body, statusCode, headers, earlyHints } = httpResponse
 
     if (res.writeEarlyHints) {
       res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) })
     }
 
-    res.status(statusCode).type(contentType).send(body)
+    res.status(statusCode)
+
+    headers.forEach(([name, value]) => res.setHeader(name, value))
+
+    res.send(body)
   })
 
   const port = process.env.PORT || 5173

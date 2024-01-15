@@ -1,4 +1,4 @@
-export function onBeforeRender (pageContext) {
+export default function onBeforeRender (pageContext) {
   if (!pageContext.user) {
     return {
       pageContext: {
@@ -13,5 +13,3 @@ export function onBeforeRender (pageContext) {
     }
   }
 }
-
-export function Page () {}

@@ -1,4 +1,4 @@
-export async function onBeforeRender (pageContext) {
+export default async function onBeforeRender (pageContext) {
   if (!pageContext.user) {
     return {
       pageContext: {

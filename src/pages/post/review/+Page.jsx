@@ -6,7 +6,7 @@ import { Container } from '#/components/Container'
 import { PostTitle } from '#/components/post/Title'
 import { ReviewForm } from '#/components/review/Form'
 
-export function Page (pageProps) {
+export default function Page (pageProps) {
   const { post, review } = pageProps
 
   const [{ title: postTitle, content }] = post.postHistory

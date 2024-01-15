@@ -1,4 +1,4 @@
-export async function onBeforeRender (_) {
+export default async function onBeforeRender (_) {
   const url = new URL('./posts/system', process.env.API_ENDPOINT)
 
   let json = {}

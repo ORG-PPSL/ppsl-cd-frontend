@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ChevronLeftIcon, InfoIcon, UserIcon } from 'lucide-react'
+import { CalendarIcon, ChevronLeftIcon, UserIcon } from 'lucide-react'
 
 import { Link } from '#/renderer/Link'
 import { usePageContext } from '#/renderer/usePageContext'
@@ -15,11 +15,11 @@ import { Container } from '#/components/Container'
 import { PostTitle } from '#/components/post/Title'
 import { Tags } from '#/components/post/Tags'
 import useFormattedDate from '#/components/useFormattedDate'
-import { typeToColorClassAndIcon } from '#/components/review/Card'
 import { PostsList } from '#/components/post/List'
 import { Reviews } from '#/components/review'
+import { typeToColorClassAndIcon } from '#/components/review/utils'
 
-export function Page (pageProps) {
+export default function Page (pageProps) {
   const { urlPathname } = usePageContext()
   const { request, html } = pageProps
 
@@ -124,7 +124,7 @@ export function Page (pageProps) {
 
         <div className="mt-8 flex flex-col gap-2 text-xs text-gray-500 dark:text-gray-400">
           <span className="inline-flex items-center gap-1">
-            <InfoIcon size="1em" />
+            <CalendarIcon size="1em" />
             &quot;{title}&quot; post created:{' '}
             {createdTimestamp || (
               <span className="inline-block h-3 w-1/4 animate-pulse bg-slate-400 bg-opacity-25"></span>
@@ -163,26 +163,4 @@ export function Page (pageProps) {
       </div>
     </Container>
   )
-}
-
-// getDocumentProps() can use fetched data to provide <title> and <meta name="description">
-export function getDocumentProps (pageProps) {
-  const { request } = pageProps
-
-  const [{ title: postHistoryTitle }] = request.postHistory
-
-  let title = postHistoryTitle
-
-  const isReview = isOfPostType(request.outRelations, 'review')
-
-  if (isReview) {
-    const [{ title: reviewingPostHistoryTitle }] =
-      request.reviewing.toPost.postHistory
-
-    title = `"${postHistoryTitle}" reviewing ${reviewingPostHistoryTitle}`
-  }
-
-  return {
-    title
-  }
 }

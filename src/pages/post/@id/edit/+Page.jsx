@@ -7,7 +7,7 @@ import { ReviewForm } from '#/components/review/Form'
 import { BioForm } from '#/components/bio/Form'
 import { EntityForm } from '#/components/entity/Form'
 
-export function Page (pageProps) {
+export default function Page (pageProps) {
   const { request } = pageProps
 
   const isSystem = isOfPostType(request.outRelations, 'system')

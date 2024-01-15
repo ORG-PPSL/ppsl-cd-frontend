@@ -1,18 +1,19 @@
 import { useState } from 'react'
-import { encode } from '@msgpack/msgpack'
 import { Loader2Icon } from 'lucide-react'
+import * as Y from 'yjs'
 
 import { Link } from '#/renderer/Link'
 
 import { EntityEditor } from '#/components/ppsl-cd-lexical-shared/src/editors/Entity/editor'
-
 import { Container } from '#/components/Container'
 import { InputTitle } from '#/components/inputs/Title'
+import { uint8ArrayToString } from '#/lib/yjs'
+import { createPost } from '#/lib/api/posts'
 
 const LANGUAGE = 'language'
 const TITLE = 'title'
 
-export function Page () {
+export default function Page ({ user }) {
   const [isSaving, setIsSaving] = useState(false)
 
   const [form, setForm] = useState({
@@ -39,33 +40,20 @@ export function Page () {
     handleFormChange({ name: LANGUAGE, value: e.target.value })
   }
 
-  const handleSubmit = async ({ event, editor }) => {
+  const handleSubmit = async ({ event, yDoc }) => {
     event.preventDefault()
 
     const { title, language, errors } = form
 
     if (errors.size > 0) return
 
-    const content = editor.getEditorState().toJSON()
-    const encodedContent = encode(content).toString()
-
-    const body = {
-      title: title.trim(),
-      language,
-      content: encodedContent
-    }
+    const yjsUpdateState = Y.encodeStateAsUpdateV2(yDoc)
+    const encodedContent = uint8ArrayToString(yjsUpdateState)
 
     setIsSaving(true)
 
     try {
-      const headers = new Headers()
-      headers.append('content-type', 'application/json')
-
-      const res = await fetch('/api/posts/', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
-      })
+      const res = await createPost(title.trim(), language, encodedContent)
 
       if (res.status >= 200 && res.status < 300) {
         const json = await res.json()
@@ -128,7 +116,7 @@ export function Page () {
           </div>
         )}
 
-        <EntityEditor onSubmit={handleSubmit} title={false} />
+        <EntityEditor onSubmit={handleSubmit} title={false} user={user} />
       </div>
     </Container>
   )

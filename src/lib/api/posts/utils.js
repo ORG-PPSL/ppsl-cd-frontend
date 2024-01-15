@@ -1,5 +1,3 @@
-import { decode } from '@msgpack/msgpack'
-
 /**
  * @param {string} UintStr
  * @param {boolean} stringify
@@ -9,8 +7,7 @@ export function tryParseContent (UintStr, stringify = false) {
   let res = UintStr || ''
 
   if (res.length > 0) {
-    res = decode(res.split(','))
-    if (stringify) res = JSON.stringify(res)
+    if (stringify) res = JSON.parse(res)
 
     return res
   }

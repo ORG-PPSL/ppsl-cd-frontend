@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { InfoIcon, ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react'
 
 import { Link } from '#/renderer/Link'
 import { tryParseContent } from '#/lib/api/posts/utils'
@@ -7,13 +6,9 @@ import { tryParseContent } from '#/lib/api/posts/utils'
 import { BioHTML } from '../ppsl-cd-lexical-shared/src/editors/Bio/read'
 import useFormattedDate from '../useFormattedDate'
 
-const POST_PAGE_ENDPOINT = '/post'
+import { typeToColorClassAndIcon } from './utils'
 
-export const typeToColorClassAndIcon = {
-  NEGATIVE: ['bg-red-500', <ThumbsDownIcon key={'NEGATIVE'} />],
-  NEUTRAL: ['bg-blue-500', <InfoIcon key={'NEUTRAL'} />],
-  POSITIVE: ['bg-green-500', <ThumbsUpIcon key={'POSITIVE'} />]
-}
+const POST_PAGE_ENDPOINT = '/post'
 
 export function ReviewCard ({ type, user, id, lastUpdated, postHistory }) {
   const [{ title, content }] = postHistory
@@ -49,7 +44,7 @@ export function ReviewCard ({ type, user, id, lastUpdated, postHistory }) {
 
     // Remove event listener on cleanup
     return () => window.removeEventListener('resize', handleResize)
-  }, [contentRef.current])
+  }, [contentRef])
 
   const urlToReview = `${POST_PAGE_ENDPOINT}/${id}`
 
@@ -68,7 +63,7 @@ export function ReviewCard ({ type, user, id, lastUpdated, postHistory }) {
             </small>
           </div>
           <div
-            className={`h-12 w-12 bg-opacity-75 ${color} flex items-center justify-center text-white text-opacity-75`}
+            className={`min-h-[3rem] h-12 min-w-[3rem] w-12 bg-opacity-75 ${color} flex items-center justify-center self-start text-white text-opacity-75`}
           >
             {icon}
           </div>

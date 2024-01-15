@@ -7,7 +7,7 @@
 * **React**
 * **React-Query**
 * **Vite**
-* **vite-plugin-ssr**
+* **Vike**
 * **Lexical**
 * **PicoCSS** & **TailwindCSS**
 * **Lucide**

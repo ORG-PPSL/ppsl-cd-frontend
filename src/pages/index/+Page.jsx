@@ -44,7 +44,7 @@ const latestPostsFilter = {
 
 const url = new URL('./posts/filter', API_ENDPOINT)
 
-export function Page (pageProps) {
+export default function Page (pageProps) {
   const { request } = pageProps
 
   const [page, setPage] = useState(0)

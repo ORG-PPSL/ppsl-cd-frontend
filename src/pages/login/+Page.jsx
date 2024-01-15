@@ -5,7 +5,7 @@ import { Container } from '#/components/Container'
 
 const submitNoOp = (e) => e.preventDefault()
 
-export function Page () {
+export default function Page () {
   return (
     <Container header={{ title: 'Login to PPSL' }}>
       <div className="p-4 sm:p-8">

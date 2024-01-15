@@ -2,14 +2,12 @@
 
 import { useState, useEffect } from 'react'
 
-const useFormattedDate = (date) => {
+export default function useFormattedDate (date) {
   const [formattedDate, setFormattedDate] = useState(null)
 
   useEffect(() => {
     if (date) setFormattedDate(new Date(date).toLocaleString())
-  }, [])
+  }, [date])
 
   return formattedDate
 }
-
-export default useFormattedDate

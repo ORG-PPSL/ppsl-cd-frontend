@@ -12,13 +12,13 @@ const getSizeClass = (size) => {
 /**
  * @param {{ onClick: () => {}, page: number, canContinue: any, size?: 'small', className: string }}
  */
-export const PaginationButtons = ({
+export function PaginationButtons ({
   onClick,
   page,
   canContinue,
   size,
   className = ''
-}) => {
+}) {
   const sizeClass = getSizeClass(size)
 
   return (

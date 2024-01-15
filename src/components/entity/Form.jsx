@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { encode } from '@msgpack/msgpack'
 
+import { usePageContext } from '#/renderer/usePageContext'
 import { tryParseContent } from '#/lib/api/posts/utils'
 import { updatePostById } from '#/lib/api/posts'
 
@@ -11,6 +12,7 @@ const LANGUAGE = 'language'
 const TITLE = 'title'
 
 export function EntityForm ({ entity }) {
+  const { user } = usePageContext()
   const [{ language, title, content }] = entity.postHistory
 
   const [isSaving, setIsSaving] = useState(false)
@@ -108,7 +110,8 @@ export function EntityForm ({ entity }) {
         title={'Editing entity'}
         post={entity}
         onSubmit={onSubmitEntity}
-        initialContent={parsedContent}
+        content={parsedContent}
+        user={user}
       />
     </>
   )

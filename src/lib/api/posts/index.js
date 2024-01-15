@@ -121,6 +121,19 @@ export async function updatePostById (postId, body) {
   return res
 }
 
+/**
+ * @param {string} title
+ * @param {string} language
+ * @param {string} content
+ */
+export async function createPost (title, language, content) {
+  return await fetch('/api/posts/', {
+    method: 'POST',
+    headers: jsonHeaders,
+    body: JSON.stringify({ title, language, content })
+  })
+}
+
 export async function upsertReviewForPostId (postId, body) {
   const res = await fetch(`/api/posts/id/${postId}/reviews`, {
     method: 'POST',

@@ -1,13 +1,10 @@
 import ReactDOMServer from 'react-dom/server'
-import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr/server'
+import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 
 import { PageShell } from './PageShell'
 
-// See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ['pageProps', 'urlPathname', 'user', 'redirectTo']
-
-// This render() hook only supports SSR, see https://vite-plugin-ssr.com/render-modes for how to modify render() to support SPA
-export async function render (pageContext) {
+// This render() hook only supports SSR, see https://vike.dev/render-modes for how to modify render() to support SPA
+export default async function render (pageContext) {
   const { Page, pageProps, user, redirectTo } = pageContext
   if (!Page) {
     throw new Error('My render() hook expects pageContext.Page to be defined')
@@ -19,9 +16,9 @@ export async function render (pageContext) {
     </PageShell>
   )
 
-  // See https://vite-plugin-ssr.com/head
+  // See https://vike.dev/head
 
-  const { documentProps, getDocumentProps } = pageContext.exports
+  const { documentProps, getDocumentProps } = pageContext.config
 
   const title = documentProps?.title || getDocumentProps?.(pageProps)?.title
   const desc =
@@ -34,8 +31,8 @@ export async function render (pageContext) {
         <!-- <link rel="icon" href="" /> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         ${desc ? `<meta name="description" content="${desc}" />` : ''}<title>${
-    title ? `${title} - ` : ''
-  }PPSL CD</title>
+          title ? `${title} - ` : ''
+        }PPSL CD</title>
       </head>
       <body>
         <div id="root">${dangerouslySkipEscape(pageHtml)}</div>
@@ -46,7 +43,7 @@ export async function render (pageContext) {
   return {
     documentHtml,
     pageContext: {
-      // We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
+      // We can add some `pageContext` here, which is useful if we want to do page redirection https://vike.dev/page-redirection
     }
   }
 }

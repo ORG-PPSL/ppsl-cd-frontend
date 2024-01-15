@@ -4,7 +4,7 @@ import { CheckCircleIcon, CircleDashedIcon } from 'lucide-react'
 import { useWikimediaCommonsQueryAllImages } from '#/lib/api/wikimedia'
 import { filterByFileNameExtension } from '#/lib/filename'
 
-import { titleFromURLString } from '../ppsl-cd-lexical-shared/src/editors/Entity/editor'
+import { titleFromURLString } from '../ppsl-cd-lexical-shared/src/editors/Entity/utils'
 
 import { Button } from '../Button'
 import { DebouncedInput } from '../DebouncedInput'
@@ -13,7 +13,7 @@ import { PaginationButtons } from '../PaginationButtons'
 /**
  * @param {{ image: any, onClick: () => {}, selected: boolean }}
  */
-const Result = ({ image, onClick, selected }) => {
+function Result ({ image, onClick, selected }) {
   const isSupported = filterByFileNameExtension(image.name, [
     'png',
     'jpg',
@@ -174,7 +174,7 @@ export function ChooseImageModal (props) {
                   page={page}
                   canContinue={canContinue}
                 />
-                <div className="my-2 !grid auto-rows-auto grid-cols-2 gap-4 rounded-xl bg-gray-500 bg-opacity-10 p-4">
+                <div className="my-2 !grid auto-rows-auto grid-cols-2 sm:grid-cols-3 gap-4 rounded-xl bg-gray-500 bg-opacity-10 p-4">
                   {response?.query?.allimages?.map((image) => (
                     <Result
                       key={image.name}
@@ -201,17 +201,17 @@ export function ChooseImageModal (props) {
             </>
               )}
 
-          <footer className="sticky bottom-0 mb-0 flex h-12 gap-4 bg-[#18232c] py-2">
+          <footer className="sticky bottom-0 mb-0 flex sm:h-12 gap-4 bg-[#18232c] py-2">
             <Button
               type="button"
-              className="w-full p-2 text-sm leading-none"
+              className="w-full p-2 text-sm leading-none sm:flex-1"
               onClick={() => onClose?.()}
             >
               Cancel
             </Button>
             <Button
               type={undefined}
-              className="w-full p-2 text-sm leading-none text-white"
+              className="w-full p-2 text-sm leading-none text-white sm:flex-1"
               disabled={!selectedImage}
             >
               {selectedImage

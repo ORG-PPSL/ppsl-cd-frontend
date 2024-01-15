@@ -2,10 +2,8 @@ import React from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import { PageShell } from './PageShell'
 
-export { render }
-
-// This render() hook only supports SSR, see https://vite-plugin-ssr.com/render-modes for how to modify render() to support SPA
-async function render (pageContext) {
+// This render() hook only supports SSR, see https://vike.dev/render-modes for how to modify render() to support SPA
+export default async function render (pageContext) {
   const { Page, pageProps, user } = pageContext
 
   if (!Page) {
@@ -26,4 +24,4 @@ async function render (pageContext) {
 
 /* To enable Client-side Routing:
 export const clientRouting = true
-// !! WARNING !! Before doing so, read https://vite-plugin-ssr.com/clientRouting */
+// !! WARNING !! Before doing so, read https://vike.dev/clientRouting */
