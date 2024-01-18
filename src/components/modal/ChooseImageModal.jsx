@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { CheckCircleIcon, CircleDashedIcon } from 'lucide-react'
 
 import { useWikimediaCommonsQueryAllImages } from '#/lib/api/wikimedia'
 import { filterByFileNameExtension } from '#/lib/filename'
@@ -45,16 +44,7 @@ function Result ({ image, onClick, selected }) {
         ? (
         <>
           <div className="flex w-full items-center justify-center gap-2 rounded rounded-b-none border-t border-blue-500 bg-blue-900 bg-opacity-75 p-2 text-white">
-            <div>
-              {selected
-                ? (
-                <CheckCircleIcon size="1em" />
-                  )
-                : (
-                <CircleDashedIcon size="1em" />
-                  )}
-            </div>
-            <span className="text-ellipsis">{fileName}</span>
+            <span className="text-ellipsis text-sm sm:text-base">{fileName}</span>
           </div>
           <div
             data-unblur-text={blur ? 'Unblur' : ''}
@@ -66,11 +56,11 @@ function Result ({ image, onClick, selected }) {
               className={`${blur ? 'blur-3xl' : ''} max-h-96`}
             />
           </div>
-          {selected && (
-            <div className="absolute bottom-0 left-0 w-full bg-[#1095c1] p-2 leading-none text-white">
-              Selected
+
+            <div className={`absolute bottom-0 left-0 w-full ${selected ? 'bg-[#1095c1]' : 'bg-black/50'} p-2 leading-none text-white`}>
+              {selected ? 'Selected' : 'Select'}
             </div>
-          )}
+
         </>
           )
         : (
@@ -121,7 +111,7 @@ export function ChooseImageModal (props) {
             <h4 className="m-0">Choose image</h4>
           </header>
 
-          <div>
+          <div className='text-sm sm:text-base'>
             <strong>
               Make sure you properly use capitalization for your query, e.g.{' '}
               <code className="bg-white text-black">
@@ -154,7 +144,7 @@ export function ChooseImageModal (props) {
             </select>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 text-sm sm:text-base">
             <strong>
               Wikimedia Commons is a global repository of images.{' '}
               <span className="text-red-500">
@@ -174,7 +164,7 @@ export function ChooseImageModal (props) {
                   page={page}
                   canContinue={canContinue}
                 />
-                <div className="my-2 !grid auto-rows-auto grid-cols-2 sm:grid-cols-3 gap-4 rounded-xl bg-gray-500 bg-opacity-10 p-4">
+                <div className="my-2 !grid auto-rows-auto grid-cols-1 sm:grid-cols-2 gap-4 rounded-xl bg-gray-500 bg-opacity-10 p-4">
                   {response?.query?.allimages?.map((image) => (
                     <Result
                       key={image.name}
@@ -201,30 +191,30 @@ export function ChooseImageModal (props) {
             </>
               )}
 
-          <footer className="sticky bottom-0 mb-0 flex sm:h-12 gap-4 bg-[#18232c] py-2">
+          <footer className="sticky bottom-0 mb-0 flex gap-4 bg-[#18232c] py-2 ">
             <Button
               type="button"
-              className="w-full p-2 text-sm leading-none sm:flex-1"
+              className="w-full sm:flex-1"
               onClick={() => onClose?.()}
             >
               Cancel
             </Button>
             <Button
               type={undefined}
-              className="w-full p-2 text-sm leading-none text-white sm:flex-1"
+              className="w-full text-white sm:flex-1 overflow-hidden"
               disabled={!selectedImage}
             >
               {selectedImage
                 ? (
-                <>
+                <span className='text-ellipsis line-clamp-1' title={titleFromURLString(selectedImage)}>
                   Use{' '}
                   <strong>
                     &quot;{titleFromURLString(selectedImage)}&quot;
                   </strong>
-                </>
+                </span>
                   )
                 : (
-                    'Select an image by pressing the title'
+                    'Select'
                   )}
             </Button>
           </footer>
