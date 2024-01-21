@@ -44,7 +44,9 @@ function Result ({ image, onClick, selected }) {
         ? (
         <>
           <div className="flex w-full items-center justify-center gap-2 rounded rounded-b-none border-t border-blue-500 bg-blue-900 bg-opacity-75 p-2 text-white">
-            <span className="text-ellipsis text-sm sm:text-base">{fileName}</span>
+            <span className="text-ellipsis text-sm sm:text-base">
+              {fileName}
+            </span>
           </div>
           <div
             data-unblur-text={blur ? 'Unblur' : ''}
@@ -57,10 +59,13 @@ function Result ({ image, onClick, selected }) {
             />
           </div>
 
-            <div className={`absolute bottom-0 left-0 w-full ${selected ? 'bg-[#1095c1]' : 'bg-black/50'} p-2 leading-none text-white`}>
-              {selected ? 'Selected' : 'Select'}
-            </div>
-
+          <div
+            className={`absolute bottom-0 left-0 w-full ${
+              selected ? 'bg-[#1095c1]' : 'bg-black/50'
+            } p-2 leading-none text-white`}
+          >
+            {selected ? 'Selected' : 'Select'}
+          </div>
         </>
           )
         : (
@@ -111,7 +116,7 @@ export function ChooseImageModal (props) {
             <h4 className="m-0">Choose image</h4>
           </header>
 
-          <div className='text-sm sm:text-base'>
+          <div className="text-sm sm:text-base">
             <strong>
               Make sure you properly use capitalization for your query, e.g.{' '}
               <code className="bg-white text-black">
@@ -164,7 +169,7 @@ export function ChooseImageModal (props) {
                   page={page}
                   canContinue={canContinue}
                 />
-                <div className="my-2 !grid auto-rows-auto grid-cols-1 sm:grid-cols-2 gap-4 rounded-xl bg-gray-500 bg-opacity-10 p-4">
+                <div className="my-2 !grid auto-rows-auto grid-cols-1 gap-4 rounded-xl bg-gray-500 bg-opacity-10 p-4 sm:grid-cols-2">
                   {response?.query?.allimages?.map((image) => (
                     <Result
                       key={image.name}
@@ -201,12 +206,15 @@ export function ChooseImageModal (props) {
             </Button>
             <Button
               type={undefined}
-              className="w-full text-white sm:flex-1 overflow-hidden"
+              className="w-full overflow-hidden text-white sm:flex-1"
               disabled={!selectedImage}
             >
               {selectedImage
                 ? (
-                <span className='text-ellipsis line-clamp-1' title={titleFromURLString(selectedImage)}>
+                <span
+                  className="line-clamp-1 text-ellipsis"
+                  title={titleFromURLString(selectedImage)}
+                >
                   Use{' '}
                   <strong>
                     &quot;{titleFromURLString(selectedImage)}&quot;

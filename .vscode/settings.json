@@ -5,12 +5,10 @@
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "npm.packageManager": "yarn",
-  "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter",
-  "editor.formatOnSave": true,
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter"
-  }
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnPaste": false, // required 
+  "editor.formatOnType": false, // required
+  "editor.formatOnSave": true, // optional 
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.autoSave": "onFocusChange", // optional but recommended
 }
