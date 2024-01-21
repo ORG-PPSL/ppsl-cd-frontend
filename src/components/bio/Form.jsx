@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { encode } from '@msgpack/msgpack'
 
 import { tryParseContent } from '#/lib/api/posts/utils'
 import { updatePostById } from '#/lib/api/posts'
@@ -19,12 +18,11 @@ export function BioForm ({ bio }) {
     event.preventDefault()
 
     const content = editor.getEditorState().toJSON()
-    const encodedContent = encode(content).toString()
 
     const body = {
       title: newTitle.trim(),
       language: newLanguage,
-      content: encodedContent
+      content
     }
 
     if (body.title.length === 0 || titleError) return

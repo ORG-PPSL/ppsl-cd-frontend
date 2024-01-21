@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { encode } from '@msgpack/msgpack'
 
 import { Link } from '#/renderer/Link'
 
@@ -73,13 +72,12 @@ export function ReviewForm ({ post, review }) {
     if (errors.size > 0) return
 
     const content = editor.getEditorState().toJSON()
-    const encodedContent = encode(content).toString()
 
     const body = {
       title: title.trim(),
       language,
       type,
-      content: encodedContent
+      content
     }
 
     setIsSaving(true)

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { encode } from '@msgpack/msgpack'
 
 import { usePageContext } from '#/renderer/usePageContext'
 import { tryParseContent } from '#/lib/api/posts/utils'
@@ -49,12 +48,11 @@ export function EntityForm ({ entity }) {
     if (errors.size > 0) return
 
     const content = editor.getEditorState().toJSON()
-    const encodedContent = encode(content).toString()
 
     const body = {
       title,
       language,
-      content: encodedContent
+      content
     }
 
     setIsSaving(true)

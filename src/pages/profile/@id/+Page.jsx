@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { encode } from '@msgpack/msgpack'
 import { EditIcon, XIcon } from 'lucide-react'
 
 import cdROMImage from '#/assets/CD-ROM.png'
@@ -46,12 +45,11 @@ export default function Page (pageProps) {
     event.preventDefault()
 
     const content = editor.getEditorState().toJSON()
-    const encodedContent = encode(content).toString()
 
     const body = {
       title: bio.title,
       language: bio.language,
-      content: encodedContent
+      content
     }
 
     try {
